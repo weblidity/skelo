@@ -1,0 +1,11 @@
+{
+  "name": "skelo",
+  "version": "3.0.5",
+  "description": "Scaffold documentation project for Docusaurus from on outline file",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "weblidity",
+  "license": "ISC"
+}
