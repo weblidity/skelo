@@ -4,11 +4,12 @@
   "description": "Scaffold documentation project for Docusaurus from on outline file",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "jest"
   },
   "author": "weblidity",
   "license": "ISC",
   "dependencies": {
+    "jest": "^29.7.0",
     "js-yaml": "^4.1.0",
     "jsonschema": "^1.4.1"
   }
