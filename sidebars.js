@@ -1,5 +1,5 @@
 const sidebars = {
-    "sidebarName": []
-};
+  sidebarName: []
+}
 
-module.exports = sidebars;
+module.exports = sidebars
