@@ -21,9 +21,6 @@ describe('getFilesFromPatterns', () => {
         const fallbackPattern = '*.md';
 
         expect(getFilesFromPatterns(primaryPattern, fallbackPattern)).toEqual(['file3.md', 'file4.md']);
-
-        // expect(globSync).toHaveBeenNthCalledWith(1, primaryPattern);
-        // expect(globSync).toHaveBeenNthCalledWith(2, fallbackPattern);
     });
 
     it('should return empty array if primary and fallback patterns are invalid', () => {
