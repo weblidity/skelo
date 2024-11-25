@@ -23,6 +23,7 @@ program
 program
     .command('build', { isDefault: true })
     .description('Build documentation files from outline files matching the filename patterns')
+
     .argument('[patterns...]', 'outline filename patterns')
 
     .option('-d, --docs <path>', 'path to folder of generated documentation files', 'docs')
@@ -32,6 +33,7 @@ program
     .option('--schema <filepath>', 'json schema validation filename', defaultSchemaLocation)
     .option('--templates <path>', 'path to folder of template files', path.join(__dirname,'templates'))
     .action((patterns, options) => {
+        console.log(patterns, options)
         try {
             const opts = useDefaultSchemaIfNeeded(options, defaultSchemaLocation);
             let documentationSidebars = buildDocumentationSidebarsLayout(patterns, opts);
@@ -52,4 +54,5 @@ program.configureHelp({
     helpWidth: 100,
 })
 
-program.parse();
+program.parse("node index.js **/*.outline.yaml --verbose".split(" "))
+// program.parse();

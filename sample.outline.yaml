@@ -1,0 +1,5 @@
+sidebars:
+  - First sidebar as string
+  - label: Second sidebar as object
+    items:
+      - Topic overview
