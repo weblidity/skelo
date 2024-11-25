@@ -2,7 +2,7 @@ const { Command } = require('commander');
 const path = require('path');
 
 const {useDefaultSchemaIfNeeded} = require('./lib/skelo-validate-schema');
-const { generateSidebarsFile } = require('./lib/skelo-utils');
+const { generateSidebarsFile, buildDocumentationSidebarsLayout } = require('./lib/skelo-utils');
 
 let program = new Command();
 
@@ -33,20 +33,16 @@ program
     .option('--templates <path>', 'path to folder of template files', path.join(__dirname,'templates'))
     .action((patterns, options) => {
         try {
-            options = useDefaultSchemaIfNeeded(options, defaultSchemaLocation);
+            const opts = useDefaultSchemaIfNeeded(options, defaultSchemaLocation);
+            let documentationSidebars = buildDocumentationSidebarsLayout(patterns, opts);
+            generateSidebarsFile(documentationSidebars, opts)
         } catch (error) {
             console.error('Error:', error.message);
             process.exit(1);
         }
 
-        let documentationSidebars = {};
-        try {
-            generateSidebarsFile(documentationSidebars, options)
-        } catch (error) {
-            console.error('Error:', error.message);
-            process.exit(1);
-        }
     })
+
 
 program.configureHelp({
     sortSubcommands: true,
