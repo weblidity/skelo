@@ -4,5 +4,3 @@ sidebars:
     - label: Second sidebar as object
       items:
         - Topic overview
-        - Getting started:
-            - Overview

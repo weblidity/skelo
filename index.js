@@ -33,7 +33,6 @@ program
   .option('--schema <filepath>', 'json schema validation filename', defaultSchemaLocation)
   .option('--templates <path>', 'path to folder of template files', path.join(__dirname, 'templates'))
   .action((patterns, options) => {
-    console.log(patterns, options)
     try {
       const opts = useDefaultSchemaIfNeeded(options, defaultSchemaLocation)
       const documentationSidebars = buildDocumentationSidebarsLayout(patterns, opts)
@@ -52,5 +51,7 @@ program.configureHelp({
   helpWidth: 100
 })
 
-// program.parse('node index.js **/*.outline.yaml --verbose'.split(' '))
-program.parse();
+program.parse("node index.js complex.outline.yaml --verbose".split(" "))
+// program.parse();
+
+
