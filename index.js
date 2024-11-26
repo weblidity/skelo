@@ -52,5 +52,5 @@ program.configureHelp({
   helpWidth: 100
 })
 
-program.parse('node index.js **/*.outline.yaml --verbose'.split(' '))
-// program.parse();
+// program.parse('node index.js **/*.outline.yaml --verbose'.split(' '))
+program.parse();
