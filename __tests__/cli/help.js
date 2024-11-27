@@ -46,7 +46,4 @@ describe('index.js lists options in alphabetical order', () => {
     });
     expect(options).toEqual(sortedOptions);
   });
-
-
 });
-
