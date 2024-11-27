@@ -4,6 +4,7 @@
   "description": "Scaffold Docusaurus documentation project using outline files.",
   "main": "index.js",
   "scripts": {
+    "changelog": "shelljs-changelog",
     "test": "jest --passWithNoTests"
   },
   "author": "weblidity",
@@ -18,6 +19,7 @@
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
+    "shelljs-changelog": "^0.2.6",
     "shelljs": "^0.8.5"
   }
 }
