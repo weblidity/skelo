@@ -1,5 +1,13 @@
 const shell = require('shelljs');
 
 shell.cd(__dirname);
+shell.echo('rem ===============');
+shell.echo("rem build with specifid patterns and verbose output");
+shell.echo('rem ===============');
+
 const {code, stdout, stderr} = shell.exec('node ../index.js ../test/**/*.outline.yaml ../test/**/*.outline.yml --verbose --');
-// shell.exec('dir');
+
+shell.echo('rem ===============');
+shell.echo("rem validate with specifid patterns and verbose output");
+shell.echo('rem ===============');
+shell.exec('node ../index.js validate ../test/**/*.outline.yaml ../test/**/*.outline.yml --verbose --');
