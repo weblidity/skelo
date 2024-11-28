@@ -16,22 +16,30 @@
           "title": {
             "type": "string",
             "description": "The title of the item.",
-            "examples": ["Example Title"]
+            "examples": ["Example Title"],
+            "minLength": 1,
+            "maxLength": 255
           },
           "definition": {
             "type": "string",
             "description": "A detailed definition of the item.",
-            "examples": ["This is an example definition."]
+            "examples": ["This is an example definition."],
+            "minLength": 1,
+            "maxLength": 1000
           },
           "summary": {
             "type": "string",
             "description": "A brief summary of the item.",
-            "examples": ["A brief summary of the example."]
+            "examples": ["A brief summary of the example."],
+            "minLength": 1,
+            "maxLength": 500
           },
           "brief": {
             "type": "string",
             "description": "A short brief about the item.",
-            "examples": ["A short brief."]
+            "examples": ["A short brief."],
+            "minLength": 1,
+            "maxLength": 255
           },
           "path": {
             "$ref": "#/definitions/path"
@@ -40,13 +48,17 @@
             "type": "string",
             "pattern": "^\\s*[a-zA-Z0-9_\\-\\s]+\\s*$",
             "description": "A unique identifier for the item.",
-            "examples": ["example_id"]
+            "examples": ["example_id"],
+            "minLength": 1,
+            "maxLength": 255
           },
           "slug": {
             "type": "string",
             "pattern": "^\\s*[a-zA-Z0-9_\\-\\s]+\\s*$",
             "description": "A URL-friendly version of the title.",
-            "examples": ["example_slug"]
+            "examples": ["example_slug"],
+            "minLength": 1,
+            "maxLength": 255
           }
         }
       },
@@ -56,7 +68,9 @@
         "type": "string",
         "format": "uri-reference",
         "pattern": "^\\s*/([^/ ]*)*\\s*$",
-        "examples": ["/example/path"]
+        "examples": ["/example/path"],
+        "minLength": 1,
+        "maxLength": 255
       },
       "basicItem": {
         "title": "Basic Item",
@@ -69,6 +83,7 @@
               "label": {
                 "type": "string",
                 "minLength": 1,
+                "maxLength": 255,
                 "description": "A label for the item.",
                 "examples": ["Example Label"]
               }
@@ -149,12 +164,16 @@
             "type": "string",
             "format": "uri",
             "description": "The URL of the link.",
-            "examples": ["https://example.com"]
+            "examples": ["https://example.com"],
+            "minLength": 1,
+            "maxLength": 2048
           },
           "description": {
             "type": "string",
             "description": "A description of the link.",
-            "examples": ["Example website"]
+            "examples": ["Example website"],
+            "minLength": 1,
+            "maxLength": 255
           }
         },
         "required": ["href"]
