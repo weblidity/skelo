@@ -4,6 +4,8 @@ const path = require('path')
 const { useDefaultSchemaIfNeeded } = require('./lib/skelo-validate-schema')
 const { generateSidebarsFile, buildDocumentationSidebarsLayout } = require('./lib/skelo-utils')
 
+const {logInfo, logDebug, logWarn, logError} = require('./lib/skelo-logger');
+
 const program = new Command()
 
 const fallbackPatterns = [
@@ -32,17 +34,15 @@ program
   .option('--verbose', 'verbose output')
   .option('--schema <filepath>', 'json schema validation filename', defaultSchemaLocation)
   .option('--templates <path>', 'path to folder of template files', path.join(__dirname, 'templates'))
+  .option('--template-extension <ext>', 'template file extension', '.hbs')
+
   .action((patterns, options) => {
-
-    console.log('patterns', patterns)
-    console.log('options', options)
-
     try {
       const opts = useDefaultSchemaIfNeeded(options, defaultSchemaLocation)
       const documentationSidebars = buildDocumentationSidebarsLayout(patterns, opts)
       generateSidebarsFile(documentationSidebars, opts)
     } catch (error) {
-      console.error('Error:', error.message)
+      logError(options.verbose, error.message)
       process.exit(1)
     }
   })
@@ -55,8 +55,4 @@ program.configureHelp({
   helpWidth: 100
 })
 
-// program.parse("node index.js test/**/*.[Oo]outline.yaml test/**/*.[Oo]outline.yml */ --verbose".split(" "))
-
 program.parse();
-
-
