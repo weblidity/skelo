@@ -11,7 +11,7 @@ const fallbackPatterns = [
   '__outlines__/**/*.yaml', '__outlines__/**/*.yml'
 ]
 
-const defaultSchemaLocation = path.join(__dirname, '../skelo/schemas/outline.schema.json')
+const defaultSchemaLocation = path.join(__dirname, '../skelo/schemas/outline/v1/outline.schema.json')
 
 const { name, description, version } = require('./package.json')
 

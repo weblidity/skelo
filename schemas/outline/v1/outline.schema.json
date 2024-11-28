@@ -1,0 +1,254 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Sidebar Item Schema",
+    "description": "A schema for defining sidebar items, including common properties, basic items, category items, topic items, and link items.",
+    "version": "1.0.0",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "#/definitions/sidebarItem"
+        }
+    ],
+    "definitions": {
+        "basicItem": {
+            "title": "Basic Item",
+            "description": "A basic item that includes common properties and a required label.",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/commonProperties"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "label": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 255,
+                            "description": "A label for the item. (Recommended)"
+                        }
+                    },
+                    "required": [
+                        "label"
+                    ]
+                }
+            ]
+        },
+        "categoryItem": {
+            "title": "Category Item",
+            "description": "A category item that includes basic item properties, an optional type, and a required items array.",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/basicItem"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "items": {
+                            "type": "array",
+                            "description": "An array of items related to the category.",
+                            "items": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/basicItem"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/categoryItem"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/topicItem"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/linkItem"
+                                    }
+                                ]
+                            }
+                        },
+                        "type": {
+                            "type": "string",
+                            "enum": [
+                                "category"
+                            ],
+                            "description": "The type of the item, which must be 'category' if present."
+                        }
+                    },
+                    "required": [
+                        "items"
+                    ]
+                }
+            ]
+        },
+        "commonProperties": {
+            "title": "Common Properties",
+            "description": "Properties that are common to multiple item types.",
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "The title of the item. (Recommended)",
+                    "minLength": 1,
+                    "maxLength": 255
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A detailed description of the item. (Frequently used)",
+                    "minLength": 1,
+                    "maxLength": 1000
+                },
+                "summary": {
+                    "type": "string",
+                    "description": "A brief summary of the item.",
+                    "minLength": 1,
+                    "maxLength": 500
+                },
+                "brief": {
+                    "type": "string",
+                    "description": "A short brief about the item.",
+                    "minLength": 1,
+                    "maxLength": 255
+                },
+                "path": {
+                    "$ref": "#/definitions/path"
+                },
+                "id": {
+                    "type": "string",
+                    "pattern": "^\\s*[a-zA-Z0-9_\\-\\s]+\\s*$",
+                    "description": "A unique identifier for the item. (Recommended)",
+                    "minLength": 1,
+                    "maxLength": 255
+                },
+                "slug": {
+                    "type": "string",
+                    "pattern": "^\\s*[a-zA-Z0-9_\\-\\s]+\\s*$",
+                    "description": "A URL-friendly version of the title.",
+                    "minLength": 1,
+                    "maxLength": 255
+                }
+            }
+        },
+        "headingItem": {
+            "title": "Heading Item",
+            "description": "A heading item that includes basic item properties and an items array.",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/basicItem"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "items": {
+                            "type": "array",
+                            "description": "An array of items related to the heading.",
+                            "items": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/basicItem"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/headingItem"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "linkItem": {
+            "title": "Link Item",
+            "description": "A link item that includes a required href property.",
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "The URL of the link.",
+                    "minLength": 1,
+                    "maxLength": 2048
+                }
+            },
+            "required": [
+                "href"
+            ]
+        },
+        "path": {
+            "title": "Path",
+            "description": "A URI reference path for the item.",
+            "type": "string",
+            "format": "uri-reference",
+            "pattern": "^\\s*/([^/ ]*)*\\s*$",
+            "minLength": 1,
+            "maxLength": 255
+        },
+        "sidebarItem": {
+            "title": "Sidebar Item",
+            "description": "A sidebar item that includes common properties and an optional sidebars array.",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/commonProperties"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "sidebars": {
+                            "type": "array",
+                            "description": "An array of items related to the sidebar.",
+                            "items": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/basicItem"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/categoryItem"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "topicItem": {
+            "title": "Topic Item",
+            "description": "A topic item that includes basic item properties and a required headings array.",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/basicItem"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "headings": {
+                            "type": "array",
+                            "description": "An array of headings related to the topic.",
+                            "items": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/basicItem"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/headingItem"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "required": [
+                        "headings"
+                    ]
+                }
+            ]
+        }
+    }
+}
