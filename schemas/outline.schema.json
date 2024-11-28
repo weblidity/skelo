@@ -1,145 +1,197 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Outline file schema",
+    "title": "Sidebar Item Schema",
+    "description": "A schema for defining sidebar items, including common properties, basic items, category items, topic items, and link items.",
+    "version": "1.0.0",
     "type": "object",
-    "properties": {
-        "sidebars": {
-            "type": "array",
-            "items": {
-                "anyOf": [
-                    {
-                        "type": "string",
-                        "minLength": 1
-                    },
-                    {
-                        "$ref": "#/definitions/sidebarCategory"
-                    }
-                ]
-            }
-        }
-    },
+    "allOf": [
+      { "$ref": "#/definitions/sidebarItem" }
+    ],
     "definitions": {
-        "sidebarLink": {
-            "type": "object",
-            "properties": {
-                "label": {
-                    "type": "string",
-                    "minLength": 1
-                },
-                "href": {
-                    "type": "string",
-                    "format": "path"
-                },
-                "title": {
-                    "type": "string",
-                    "minLength": 1
-                }
-            },
-            "required": [
-                "label",
-                "href"
-            ]
-        },
-        "sidebarCategory": {
-            "type": "object",
-            "properties": {
-                "label": {
-                    "type": "string",
-                    "minLength": 1
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "anyOf": [
-                            {
-                                "type": "string",
-                                "minLength": 1
-                            },
-                            {
-                                "$ref": "#/definitions/sidebarTopic"
-                            },
-                            {
-                                "$ref": "#/definitions/sidebarLink"
-                            },
-                            {
-                                "$ref": "#/definitions/sidebarCategory"
-                            },
-                            {
-                                "$ref": "#/definitions/sidebarBasic"
-                            }
-                        ]
-                    }
-                }
-            },
-            "required": [
-                "label",
-                "items"
-            ]
-        },
-        "sidebarBasic": {
-            "type": "object",
-            "properties": {
-                "label": {
-                    "type": "string",
-                    "minLength": 1
-                },
-                "path": {
-                    "type": "string",
-                    "format": "path"
-                },
-                "id": {
-                    "type": "string",
-                    "minLength": 1
-                },
-                "slug": {
-                    "type": "string",
-                    "minLength": 1
-                },
-                "brief": {
-                    "type": "string",
-                    "minLength": 1
-                },
-                "description":{
-                    "type": "string",
-                    "minLength": 1
-                },
-                "title": {
-                    "type": "string",
-                    "minLength": 1
-                }
-            },
-            "required": [
-                "label"
-            ]
-        },
-        "sidebarTopic": {
-            "type": "object",
-            "properties": {
-                "label": {
-                    "type": "string",
-                    "minLength": 1
-                },
-                "headings":{
-                    "type": "array",
-                    "items": {
-                        "anyOf": [
-                            {
-                                "type": "string",
-                                "minLength": 1
-                            },
-                            {
-                                "$ref": "#/definitions/sidebarBasic"
-                            },
-                            {
-                                "$ref": "#/definitions/sidebarCategory"
-                            }
-                        ]
-                    }
-                }
-            },
-            "required": [
-                "label", "headings"
-            ]
+      "commonProperties": {
+        "title": "Common Properties",
+        "description": "Properties that are common to multiple item types.",
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "The title of the item.",
+            "examples": ["Example Title"]
+          },
+          "definition": {
+            "type": "string",
+            "description": "A detailed definition of the item.",
+            "examples": ["This is an example definition."]
+          },
+          "summary": {
+            "type": "string",
+            "description": "A brief summary of the item.",
+            "examples": ["A brief summary of the example."]
+          },
+          "brief": {
+            "type": "string",
+            "description": "A short brief about the item.",
+            "examples": ["A short brief."]
+          },
+          "path": {
+            "$ref": "#/definitions/path"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^\\s*[a-zA-Z0-9_\\-\\s]+\\s*$",
+            "description": "A unique identifier for the item.",
+            "examples": ["example_id"]
+          },
+          "slug": {
+            "type": "string",
+            "pattern": "^\\s*[a-zA-Z0-9_\\-\\s]+\\s*$",
+            "description": "A URL-friendly version of the title.",
+            "examples": ["example_slug"]
+          }
         }
+      },
+      "path": {
+        "title": "Path",
+        "description": "A URI reference path for the item.",
+        "type": "string",
+        "format": "uri-reference",
+        "pattern": "^\\s*/([^/ ]*)*\\s*$",
+        "examples": ["/example/path"]
+      },
+      "basicItem": {
+        "title": "Basic Item",
+        "description": "A basic item that includes common properties and a required label.",
+        "allOf": [
+          { "$ref": "#/definitions/commonProperties" },
+          {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string",
+                "minLength": 1,
+                "description": "A label for the item.",
+                "examples": ["Example Label"]
+              }
+            },
+            "required": ["label"]
+          }
+        ]
+      },
+      "categoryItem": {
+        "title": "Category Item",
+        "description": "A category item that includes basic item properties, an optional type, and a required items array.",
+        "allOf": [
+          { "$ref": "#/definitions/basicItem" },
+          {
+            "type": "object",
+            "properties": {
+              "items": {
+                "type": "array",
+                "description": "An array of items related to the category.",
+                "items": {
+                  "anyOf": [
+                    { "type": "string" },
+                    { "$ref": "#/definitions/basicItem" },
+                    { "$ref": "#/definitions/categoryItem" },
+                    { "$ref": "#/definitions/topicItem" },
+                    { "$ref": "#/definitions/linkItem" }
+                  ]
+                },
+                "examples": [
+                  ["Item 1", { "label": "Subitem A" }, { "label": "Subitem B" }]
+                ]
+              },
+              "type": {
+                "type": "string",
+                "enum": ["category"],
+                "description": "The type of the item, which must be 'category' if present.",
+                "examples": ["category"]
+              }
+            },
+            "required": ["items"]
+          }
+        ]
+      },
+      "topicItem": {
+        "title": "Topic Item",
+        "description": "A topic item that includes basic item properties and a required headings array.",
+        "allOf": [
+          { "$ref": "#/definitions/basicItem" },
+          {
+            "type": "object",
+            "properties": {
+              "headings": {
+                "type": "array",
+                "description": "An array of headings related to the topic.",
+                "items": {
+                  "anyOf": [
+                    { "type": "string" },
+                    { "$ref": "#/definitions/basicItem" },
+                    { "$ref": "#/definitions/categoryItem" },
+                    { "$ref": "#/definitions/linkItem" }
+                  ]
+                },
+                "examples": [
+                  ["Heading 1", { "label": "Subheading A" }, { "label": "Subheading B" }]
+                ]
+              }
+            },
+            "required": ["headings"]
+          }
+        ]
+      },
+      "linkItem": {
+        "title": "Link Item",
+        "description": "A link item that includes a required href property and an optional description.",
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL of the link.",
+            "examples": ["https://example.com"]
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the link.",
+            "examples": ["Example website"]
+          }
+        },
+        "required": ["href"]
+      },
+      "sidebarItem": {
+        "title": "Sidebar Item",
+        "description": "A sidebar item that includes common properties and a required sidebars array.",
+        "allOf": [
+          { "$ref": "#/definitions/commonProperties" },
+          {
+            "type": "object",
+            "properties": {
+              "sidebars": {
+                "type": "array",
+                "description": "An array of items related to the sidebar.",
+                "items": {
+                  "anyOf": [
+                    { "type": "string" },
+                    { "$ref": "#/definitions/basicItem" },
+                    { "$ref": "#/definitions/categoryItem" }
+                  ]
+                },
+                "examples": [
+                  ["Introduction", { "label": "Getting Started" }, { "label": "Advanced Topics" }]
+                ]
+              },
+              "type": {
+                "type": "string",
+                "enum": ["sidebar"],
+                "description": "The type of the item, which must be 'sidebar'.",
+                "examples": ["sidebar"]
+              }
+            },
+            "required": ["sidebars"]
+          }
+        ]
+      }
     }
-}
+  }
+  
