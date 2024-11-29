@@ -1,6 +1,5 @@
 # Skelo
 
-
 Scaffold documentation projects for Docusaurus from outline files.
 
 ## Table of Contents
@@ -27,8 +26,8 @@ To get started with Skelo, follow these steps:
 
 ### Prerequisites
 
-* Node.js (version 14 or higher)
-* npm (version 6 or higher)
+- Node.js (version 14 or higher)
+- npm (version 6 or higher)
 
 ### Installation
 
@@ -42,10 +41,10 @@ npm install -g skelo
 
 Skelo provides the following features:
 
-* Scaffold documentation projects for Docusaurus from outline files
-* Support for multiple outline file formats (YAML, JSON)
-* Customizable templates for documentation projects
-* Validation of outline files against a JSON schema
+- Scaffold documentation projects for Docusaurus from outline files
+- Support for multiple outline file formats (YAML, JSON)
+- Customizable templates for documentation projects
+- Validation of outline files against a JSON schema
 
 ## Usage
 
@@ -65,14 +64,14 @@ skelo [build|] <outline-file-patterns> [options]
 
 Options:
 
-* `-d, --docs <path>`: Path to folder of generated documentation files (default: `docs`)
-* `-s, --sidebars <filepath>`: Path and filename of sidebars file (default: `sidebars.js`)
-* `--fallback-patterns <patterns...>`: Fallback patterns for finding outline files
-* `--schema <filepath>`: Path to JSON schema validation file (default: `outline.schema.json`)
-* `-t, --templates <path>`: Path to folder of template files (default: `templates`)
-* `-e, --template-extension <ext>`: Template file extension (default: `.hbs`)
-* `-v, --verbose`: Enable verbose logging
-* `-h, --help`: Display this help message  
+- `-d, --docs <path>`: Path to folder of generated documentation files (default: `docs`)
+- `-s, --sidebars <filepath>`: Path and filename of sidebars file (default: `sidebars.js`)
+- `--fallback-patterns <patterns...>`: Fallback patterns for finding outline files
+- `--schema <filepath>`: Path to JSON schema validation file (default: `outline.schema.json`)
+- `-t, --templates <path>`: Path to folder of template files (default: `templates`)
+- `-e, --template-extension <ext>`: Template file extension (default: `.hbs`)
+- `-v, --verbose`: Enable verbose logging
+- `-h, --help`: Display this help message  
 
 ## Contributing
 
@@ -84,23 +83,21 @@ Contributions are welcome! If you'd like to contribute to Skelo, please follow t
 4. Submit a pull request
 5. Wait for your pull request to be merged
 
-
 ## License
 
 Skelo is distributed under the ISC License. See `LICENSE` for more information.
-
 
 ## Acknowledgments
 
 Skelo uses the following dependencies:
 
-* [commander](https://www.npmjs.com/package/commander)
-* [glob](https://www.npmjs.com/package/glob)
-* [handlebars](https://www.npmjs.com/package/handlebars)
-* [jest](https://www.npmjs.com/package/jest)
-* [jsonschema](https://www.npmjs.com/package/jsonschema)
-* [mkdirp](https://www.npmjs.com/package/mkdirp)
-* [path](https://www.npmjs.com/package/path)
-* [shelljs](https://www.npmjs.com/package/shelljs)
-* [winston](https://www.npmjs.com/package/winston)
-* [yamljs](https://www.npmjs.com/package/yamljs)
+- [commander](https://www.npmjs.com/package/commander)
+- [glob](https://www.npmjs.com/package/glob)
+- [handlebars](https://www.npmjs.com/package/handlebars)
+- [jest](https://www.npmjs.com/package/jest)
+- [jsonschema](https://www.npmjs.com/package/jsonschema)
+- [mkdirp](https://www.npmjs.com/package/mkdirp)
+- [path](https://www.npmjs.com/package/path)
+- [shelljs](https://www.npmjs.com/package/shelljs)
+- [winston](https://www.npmjs.com/package/winston)
+- [yamljs](https://www.npmjs.com/package/yamljs)
