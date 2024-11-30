@@ -25,16 +25,28 @@ jobs:
       - name: Print Located Files
         run: echo "${{ steps.find-files.outputs.located_files }}"
         
+      - name: Check Line Endings Before
+        run: file README.md
+
       - name: Remove Blank Lines
         run: |
           find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" -o -name "*.html" -o -name "*.yaml" -o -name "*.yml" -o -name "*.xml" -o -name "*.py" -o -name "*.java" -o -name "*.cpp" -o -name "*.c" -o -name "*.cs" -o -name "*.sh" -o -name "*.bash" -o -name "*.zsh" -o -name "*.gitignore" -o -name "*.dockerignore" -o -name "Dockerfile" -o -name "*.npmignore" \) -not -path "./node_modules/*" -not -path "./.github/workflows/*" -exec sed -i '/^\s*$/N;/^\s*$/D' {} +
 
-      - name: Dry Run sed  # KEEP THIS FOR DEBUGGING
-        run: |
-           find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" -o -name "*.html" -o -name "*.yaml" -o -name "*.yml" -o -name "*.xml" -o -name "*.py" -o -name "*.java" -o -name "*.cpp" -o -name "*.c" -o -name "*.cs" -o -name "*.sh" -o -name "*.bash" -o -name "*.zsh" -o -name "*.gitignore" -o -name "*.dockerignore" -o -name "Dockerfile" -o -name "*.npmignore" \) -not -path "./node_modules/*" -not -path "./.github/workflows/*" -exec sed '/^\s*$/N;/^\s*$/D' {} \;
+      - name: Check Line Endings After
+        run: file README.md
 
-      - name: Add Changes to Git  # <--- This step was missing
-        run: git add .
+      # The below 2 steps are for checking whether sed modifies the files
+      - name: Print and Store README.md After
+        run: |
+          cat README.md
+          cat README.md > README_after.md
+
+      - name: Dry Run sed on Individual Files # KEEP THIS FOR DEBUGGING
+        run: |
+           find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" -o -name "*.html" -o -name "*.yaml" -o -name "*.yml" -o -name "*.xml" -o -name "*.py" -o -name "*.java" -o -name "*.cpp" -o -name "*.c" -o -name "*.cs" -o -name "*.sh" -o -name "*.bash" -o -name "*.zsh" -o -name "*.gitignore" -o -name "*.dockerignore" -o -name "Dockerfile" -o -name "*.npmignore" \) -not -path "./node_modules/*" -not -path "./.github/workflows/*" -exec sed '/^\s*$/N;/^\s*$/D' {} \; # The important change is to remove the -i option from sed, and remove -print0 and xargs -0. Instead, use {} \; to execute the sed command on each file individually.
+
+      - name: Add Changes to Git
+        run: git add --all
 
       - name: Configure Git User and Email
         run: |
