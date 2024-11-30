@@ -25,8 +25,8 @@ jobs:
             find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" \) -exec sed '/^\s*$/N;/^\s*$/D' {} \; # Print output without -i to check
             cat README.md # Print the file content after sed command
 
-       - name: Git Status Before Add
-         run: git status
+      - name: Git Status Before Add
+        run: git status
 
 
       - name: Add Changes to Git
