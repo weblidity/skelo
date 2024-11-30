@@ -39,4 +39,3 @@ describe('index.js lists options in alphabetical order', () => {
   it('should list options in alphabetical order', () => {
     const { stdout } = exec(`node ${indexPath} --help`, { silent: true });
     const options = stdout.split('\n').filter(line => line.startsWith('  -'));
-    const sortedOptions = options.slice().sort((a, b) => {

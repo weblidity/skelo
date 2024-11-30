@@ -98,4 +98,3 @@ Skelo uses the following dependencies:
 - [glob](https://www.npmjs.com/package/glob)
 - [handlebars](https://www.npmjs.com/package/handlebars)
 - [jest](https://www.npmjs.com/package/jest)
-- [jsonschema](https://www.npmjs.com/package/jsonschema)
