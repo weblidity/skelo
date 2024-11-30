@@ -30,8 +30,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Cleaned up code files"
-          file_pattern: "*.md *.json *.js *.css *.java"
+          file_pattern: "./*.{md,MD} ./*.{json,JSON} ./*.{js,JS} ./*.{css,CSS} ./*.{java,JAVA}" # Recursive and case-insensitive
       - name: List changed files
         if: steps.check_changes.outputs.changed_files > 0
         run: cat files-changed.txt
-
