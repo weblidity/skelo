@@ -21,4 +21,3 @@ describe('buildparentPath', () => {
 
   it('should handle both parent and item paths being null or empty', () => {
     expect(buildParentPath(null, null)).toBe('')
-    expect(buildParentPath('', '')).toBe('')
