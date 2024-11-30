@@ -37,7 +37,7 @@ jobs:
         with:
           commit_message: "Cleaned up code files"
           file_pattern: "./*" # Commit all changed files
-      - name: List changed files
-        if: steps.check_changes.outputs.changed_files > 0
-        run: cat files-changed.txt # Removed as unnecessary
+      # - name: List changed files
+      #   if: steps.check_changes.outputs.changed_files > 0
+      #   run: cat files-changed.txt # Removed as unnecessary
 
