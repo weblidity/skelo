@@ -6,12 +6,11 @@ jobs:
   format-code:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Format code
-        run: |
-          fmt -s -w 80 $(find . -type f -name "**/*.*")
+        - name: Format code
+          run: |
+            fmt -s -w 80 $(find . -type f -name "**/*.*")
+            find . -type f -name "**/*.*" -exec sed -i '/^$/d' {} +
 
 
 
-          
+
