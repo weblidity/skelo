@@ -18,9 +18,10 @@ jobs:
         run: ls -alR
       - name: Clean Code Files
         run: |
-          find . \( -name "*.md" -o -name "*.json" -o -name "*.js" -o -name "*.css" -o -name "*.java" \) -print0 | while IFS= read -r -d $'\0' file; do
+          find . \( -name "*.md" -o -name "*.json" -o -name "*.js" -o -name "*.css" -o -name "*.java" -o -name "*.yaml" -o -name "*.yml" \) -print0 | while IFS= read -r -d $'\0' file; do
             sed -i -e '/^$/N;/^\n$/D' -e 's/[[:space:]]*$//' "$file"
             echo "Cleaned: $file"  # Show which files were processed
+            git add "$file" # Stage the changes
           done
       - name: Debug - Show directory contents after cleaning
         run: ls -alR
@@ -36,6 +37,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Cleaned up code files"
-          file_pattern: "./*" # Commit all changed files
-
 
