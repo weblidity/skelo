@@ -1,8 +1,5 @@
 # skelo-cli
 
-
-
-                     
 Scaffold documentation projects for Docusaurus from outline files.
 
 [![npm](https://img.shields.io/npm/v/skelo-cli)](https://www.npmjs.com/package/skelo-cli)
@@ -78,7 +75,7 @@ Options:
 - `-t, --templates <path>`: Path to folder of template files (default: `templates`)
 - `-e, --template-extension <ext>`: Template file extension (default: `.hbs`)
 - `-v, --verbose`: Enable verbose logging
-- `-h, --help`: Display this help message  
+- `-h, --help`: Display this help message
 
 ## Contributing
 
