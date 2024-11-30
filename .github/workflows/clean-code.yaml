@@ -1,0 +1,19 @@
+name: Clean Code
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Clean Code Files
+        run: |
+          find . \( -name "*.md" -o -name "*.json" -o -name "*.js" -o -name "*.css" -o -name "*.java" \) -print0 | while IFS= read -r -d $'\0' file; do
+            sed -i -e '/^$/N;/^\n$/D' -e 's/[[:space:]]*$//' "$file"
+          done
+
