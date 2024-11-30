@@ -1,6 +1,7 @@
 name: Remove Consecutive Blank Lines
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
 
 jobs:
   remove-lines:
@@ -11,49 +12,24 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.ref }}
-
-      - name: List Files
-        run: ls -al
-
-      - name: Print README.md Before
-        run: cat README.md
-
-      - name: Find Files
-        id: blank-lines
-        run: |
-          echo "::set-output name=files_found::$(find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" \))"
-
-      - name: Warning files found
-        if: steps.blank-lines.outputs.files_found == ''
-        run: |
-          echo "::warning::No files found to process"
-
-      - name: Files found
-        if: steps.blank-lines.outputs.files_found != ''
-        run: |
-            echo "::notice::Files found to process: ${{ steps.blank-lines.outputs.files_found }}"
+          persist-credentials: false  # Use the workflow triggerer's token
 
       - name: Remove Blank Lines
         run: |
-          find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" \) -print0 | xargs -0 -t sed -i '/^\s*$/N;/^\s*$/D'
+          find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" \) -exec sed -i '/^\s*$/N;/^\s*$/D' {} +
 
-
-      - name: Dry Run sed
+      - name: Configure Git User and Email  # IMPORTANT
         run: |
-           find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" \) -exec sed '/^\s*$/N;/^\s*$/D' {} \;
-
-      - name: Print README.md After
-        run: cat README.md
-
-      - name: Git Status Before Add
-        run: git status
-
-      - name: Add Changes to Git
-        run: git add --all
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Commit Changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Remove consecutive blank lines"
-          file_pattern: ./**/*.{md,markdown,js,json,css}
+        run: |
+          git add .
+          git commit -m "Remove consecutive blank lines"
 
+      - name: Push Changes  # Push the changes back
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
