@@ -14,6 +14,18 @@ jobs:
           ref: ${{ github.ref }}
           persist-credentials: false
 
+      - name: Create README_before.md
+        run: |
+            cp README.md README_before.md  # Or use 'cat README.md > README_before.md'
+        
+      - name: Print and Commit README_before.md
+        run: |
+             cat README_before.md
+             git add README_before.md
+        
+        
+        
+
       - name: List Files and Folders
         run: ls -alR
 
@@ -40,6 +52,7 @@ jobs:
         run: |
           cat README.md
           cat README.md > README_after.md
+          git add README_after.md
 
       - name: Dry Run sed on Individual Files # KEEP THIS FOR DEBUGGING
         run: |
