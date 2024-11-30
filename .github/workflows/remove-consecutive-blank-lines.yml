@@ -7,23 +7,28 @@ name: Remove Consecutive Blank Lines
 
 on:
   workflow_dispatch:  # Allows manual triggering
-  
+
 jobs:
   remove-blank-lines:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # Important: fetch all history for proper commit attribution
+        # with:
+        #   fetch-depth: 0 # Important: fetch all history for proper commit attribution
 
-      - name: Remove consecutive blank lines
-        run: |
-          find . -type f \( -name "*.js" -o -name "*.json" -o -name "*.yml" -o -name "*.yaml" -o -name "*.md" -o -name "*.markdown" -o -name "*.css" -o -name "*.txt" \) -exec sed -i '/^\s*$/N;/^\s*$/D' {} +
+        - name: Remove consecutive blank lines
+          run: |
+            find . -type f \( -name "*.js" -o -name "*.json" -o ... \) -exec sed -i '/^\s*$/N;/^\s*$/D' {} +
+            git status  # Show the status after sed runs
+            git diff    # Show the changes made by sed
+      
 
-      - name: Commit changes
+        - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Remove consecutive blank lines"
-          file_pattern: ./**/*.{js,json,yml,yaml,md,markdown,css,txt} # Specify the file patterns
+          file_pattern: ./**/*.{js,json,yml,yaml,md,markdown,css,txt}
+          pre_commit_command: "echo 'Files changed:' && git status" # Check status before commit
+          
 
 
