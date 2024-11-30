@@ -14,23 +14,30 @@ jobs:
         with:
           persist-credentials: true
           fetch-depth: 0
+      - name: Debug - Show directory contents before cleaning
+        run: ls -alR
       - name: Clean Code Files
         run: |
           find . \( -name "*.md" -o -name "*.json" -o -name "*.js" -o -name "*.css" -o -name "*.java" \) -print0 | while IFS= read -r -d $'\0' file; do
             sed -i -e '/^$/N;/^\n$/D' -e 's/[[:space:]]*$//' "$file"
+            echo "Cleaned: $file"  # Show which files were processed
           done
+      - name: Debug - Show directory contents after cleaning
+        run: ls -alR
       - name: Check for modified files
         id: check_changes
         run: |
-          git status --porcelain | tee files-changed.txt
-          CHANGED_FILES=$(cat files-changed.txt | wc -l)
+          git status --porcelain
+          git diff --cached # Show staged changes
+          CHANGED_FILES=$(git status --porcelain | wc -l) # More accurate
           echo "::set-output name=changed_files::$CHANGED_FILES"
       - name: Commit Changes (if any)
         if: steps.check_changes.outputs.changed_files > 0
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Cleaned up code files"
-          file_pattern: "./*.{md,MD} ./*.{json,JSON} ./*.{js,JS} ./*.{css,CSS} ./*.{java,JAVA}" # Recursive and case-insensitive
+          file_pattern: "./*" # Commit all changed files
       - name: List changed files
         if: steps.check_changes.outputs.changed_files > 0
-        run: cat files-changed.txt
+        run: cat files-changed.txt # Removed as unnecessary
+
