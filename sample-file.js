@@ -4,8 +4,8 @@
 
 
 /**
- * @fileoverview Sample file
- * @author Firstname Lastname
+ * @fileoverview Sample file                            
+ * @author Firstname Lastname                        
  */
 
 
