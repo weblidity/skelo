@@ -18,7 +18,7 @@ jobs:
 
       - name: Remove consecutive blank lines
         run: |
-          find . -type f \( -name "*.js" -o -name "*.json" -o ... \) -exec sed -i '/^\s*$/N;/^\s*$/D' {} +
+          find . -type f \( -name "*.js" -o -name "*.json" -o -name '*.md" \) -exec sed -i '/^\s*$/N;/^\s*$/D' {} +
           git status  # Show the status after sed runs
           git diff    # Show the changes made by sed
     
