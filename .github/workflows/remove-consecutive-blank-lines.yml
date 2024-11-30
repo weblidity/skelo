@@ -12,11 +12,11 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.ref }}
-          persist-credentials: false  # Use the workflow triggerer's token
+          persist-credentials: false
 
       - name: Remove Blank Lines
         run: |
-          find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" \) -exec sed -i '/^\s*$/N;/^\s*$/D' {} +
+          find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" \) -not -path "./node_modules/*" -exec sed -i '/^\s*$/N;/^\s*$/D' {} + # Exclude node_modules
 
       - name: Configure Git User and Email  # IMPORTANT
         run: |
