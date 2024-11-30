@@ -1,10 +1,9 @@
-# Skelo
-
+# skelo-cli
 
 Scaffold documentation projects for Docusaurus from outline files.
 
-[![npm](https://img.shields.io/npm/v/skelo)](https://www.npmjs.com/package/skelo)
-[![Node.js CI](https://github.com/weblidity/skelo/actions/workflows/node.js.yml/badge.svg)](https://github.com/weblidity/skelo/actions/workflows/node.js.yml)
+[![npm](https://img.shields.io/npm/v/skelo-cli)](https://www.npmjs.com/package/skelo-cli)
+[![Node.js CI](https://github.com/weblidity/skelo-cli/actions/workflows/node.js.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/node.js.yml)
 [![License](https://img.shields.io/badge/License-ISC-blue.svg)](LICENSE)
 
 ## Table of Contents
@@ -23,7 +22,7 @@ Scaffold documentation projects for Docusaurus from outline files.
 
 ## Overview
 
-Skelo is a command-line tool that helps you scaffold documentation projects for Docusaurus using outline files. It provides a simple and efficient way to generate documentation projects from outline files, making it easier to manage and maintain your documentation.
+skelo-cli is a command-line tool that helps you scaffold documentation projects for Docusaurus using outline files. It provides a simple and efficient way to generate documentation projects from outline files, making it easier to manage and maintain your documentation.
 
 ## Getting Started
 
@@ -39,7 +38,7 @@ To get started with Skelo, follow these steps:
 To install Skelo, run the following command:
 
 ```bash
-npm install -g skelo
+npm install -g skelo-cli
 ```
 
 ## Features

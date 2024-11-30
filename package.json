@@ -3,6 +3,9 @@
   "version": "3.0.5",
   "description": "Scaffold Docusaurus documentation project using outline files.",
   "main": "index.js",
+  "bin": {
+    "skelo": "./index.js"
+  },
   "scripts": {
     "test": "jest --passWithNoTests",
     "test:build": "node test/run.js"

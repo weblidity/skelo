@@ -1,0 +1,13 @@
+name: Format Code
+
+on: [push]
+
+jobs:
+  format-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Format code
+        run: |
+          fmt -s -w 80 $(find . -type f -name "*.txt")

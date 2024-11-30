@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { Command } = require('commander')
 const path = require('path')
 const fsSync = require('fs')
