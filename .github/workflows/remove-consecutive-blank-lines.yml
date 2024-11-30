@@ -1,4 +1,4 @@
-name: Simple Blank Line Removal
+name: Remove Consecutive Blank Lines
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Create Test File
+      - name: Create Test Files # Create multiple test files
         run: |
           cat << EOF > test.md
           
@@ -25,11 +25,74 @@ jobs:
 
 
           EOF
+          cat << EOF > test.markdown
+          
+
+
+          markdown line 1
+
+
+          markdown line 2
+
+
+
+          EOF
+          cat << EOF > test.js
+          
+
+
+          // js line 1
+
+
+          // js line 2
+
+
+
+          EOF
+          cat << EOF > test.json
+          {
+
+
+
+          "key1": "value1",
+
+
+
+          "key2": "value2"
+
+
+
+          }
+          EOF
+          cat << EOF > test.css
+          
+
+
+
+          .class1 {
+
+
+
+          color: red;
+
+
+
+          }
+
+
+
+          EOF
+
+
 
       - name: Remove Blank Lines
         run: |
-          sed -i '/^\s*$/N;/^\s*$/D' test.md
+          find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" \) -exec sed -i '/^\s*$/N;/^\s*$/D' {} +
           cat test.md
+          cat test.markdown
+          cat test.js
+          cat test.json
+          cat test.css
           git status
           git diff
 
@@ -37,8 +100,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Test blank line removal"
-          file_pattern: test.md
-
+          file_pattern: ./**/*.{md,markdown,js,json,css} # Updated file pattern
 
 
 # name: Remove Consecutive Blank Lines
