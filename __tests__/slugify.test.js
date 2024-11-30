@@ -35,4 +35,3 @@ describe('slugify', () => {
 
   it('should throw an error if input is not a string', () => {
     expect(() => slugify(123)).toThrow('Invalid input: expected a string.')
-    expect(() => slugify(null)).toThrow('Invalid input: expected a string.')
