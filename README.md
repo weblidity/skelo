@@ -1,3 +1,8 @@
+
+
+
+
+
 # skelo-cli
 
 Scaffold documentation projects for Docusaurus from outline files.
@@ -105,4 +110,7 @@ Skelo uses the following dependencies:
 - [shelljs](https://www.npmjs.com/package/shelljs)
 - [winston](https://www.npmjs.com/package/winston)
 - [yamljs](https://www.npmjs.com/package/yamljs)
+
+
+                        
 
