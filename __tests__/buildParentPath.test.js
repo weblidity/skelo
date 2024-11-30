@@ -25,4 +25,3 @@ describe('buildparentPath', () => {
     expect(buildParentPath(null, '')).toBe('')
     expect(buildParentPath('', null)).toBe('')
   })
-})
