@@ -4,7 +4,7 @@ Scaffold documentation projects for Docusaurus from outline files.
 
 [![npm](https://img.shields.io/npm/v/skelo-cli)](https://www.npmjs.com/package/skelo-cli)
 [![Node.js CI](https://github.com/weblidity/skelo-cli/actions/workflows/node.js.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/node.js.yml)
-[![License](https://img.shields.io/badge/License-ISC-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-ISC-blue.svg)](LICENSE) [![Codacy Security Scan](https://github.com/weblidity/skelo-cli/actions/workflows/codacy.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/codacy.yml)
 
 ## Table of Contents
 
