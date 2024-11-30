@@ -3,14 +3,24 @@ name: Remove Consecutive Blank Lines
 on:
   push:
     paths:
-      - '**'  # Trigger on any file change
+      - '**'
 
 jobs:
   remove-blank-lines:
-    runs-on: ubuntu-latest  # You can choose a different OS if needed
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Important: fetch all history for proper commit attribution
 
       - name: Remove consecutive blank lines
         run: |
           find . -type f \( -name "*.js" -o -name "*.json" -o -name "*.yml" -o -name "*.yaml" -o -name "*.md" -o -name "*.markdown" -o -name "*.css" -o -name "*.txt" \) -exec sed -i '/^\s*$/N;/^\s*$/D' {} +
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Remove consecutive blank lines"
+          file_pattern: ./**/*.{js,json,yml,yaml,md,markdown,css,txt} # Specify the file patterns
+
+
