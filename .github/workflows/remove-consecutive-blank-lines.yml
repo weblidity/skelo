@@ -15,8 +15,13 @@ jobs:
         run: |
           find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" \) -exec sed -i '/^\s*$/N;/^\s*$/D' {} +
 
+      - name: Check modified files
+        run: |
+          echo 'Files modified:'
+          git status
+          
       - name: Commit Changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Remove consecutive blank lines"
           file_pattern: ./**/*.{md,markdown,js,json,css}
