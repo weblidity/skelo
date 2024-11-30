@@ -16,14 +16,14 @@ jobs:
         # with:
         #   fetch-depth: 0 # Important: fetch all history for proper commit attribution
 
-        - name: Remove consecutive blank lines
-          run: |
-            find . -type f \( -name "*.js" -o -name "*.json" -o ... \) -exec sed -i '/^\s*$/N;/^\s*$/D' {} +
-            git status  # Show the status after sed runs
-            git diff    # Show the changes made by sed
-      
+      - name: Remove consecutive blank lines
+        run: |
+          find . -type f \( -name "*.js" -o -name "*.json" -o ... \) -exec sed -i '/^\s*$/N;/^\s*$/D' {} +
+          git status  # Show the status after sed runs
+          git diff    # Show the changes made by sed
+    
 
-        - name: Commit changes
+      - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Remove consecutive blank lines"
