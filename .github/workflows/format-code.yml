@@ -10,4 +10,4 @@ jobs:
         uses: actions/checkout@v2
       - name: Format code
         run: |
-          fmt -s -w 80 $(find . -type f -name "*.txt")
+          fmt -s -w 80 $(find . -type f -name "**/*.js" "**/*.*")
