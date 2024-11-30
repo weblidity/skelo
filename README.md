@@ -100,4 +100,3 @@ Skelo uses the following dependencies:
 - [handlebars](https://www.npmjs.com/package/handlebars)
 - [jest](https://www.npmjs.com/package/jest)
 - [jsonschema](https://www.npmjs.com/package/jsonschema)
-- [mkdirp](https://www.npmjs.com/package/mkdirp)
