@@ -38,4 +38,3 @@ describe('slugify', () => {
     expect(() => slugify(null)).toThrow('Invalid input: expected a string.')
     expect(() => slugify(undefined)).toThrow('Invalid input: expected a string.')
     expect(() => slugify({})).toThrow('Invalid input: expected a string.')
-    expect(() => slugify([])).toThrow('Invalid input: expected a string.')

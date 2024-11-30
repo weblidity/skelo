@@ -23,4 +23,3 @@
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
-    "shelljs": "^0.8.5"

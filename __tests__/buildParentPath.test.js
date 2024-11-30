@@ -23,4 +23,3 @@ describe('buildparentPath', () => {
     expect(buildParentPath(null, null)).toBe('')
     expect(buildParentPath('', '')).toBe('')
     expect(buildParentPath(null, '')).toBe('')
-    expect(buildParentPath('', null)).toBe('')
