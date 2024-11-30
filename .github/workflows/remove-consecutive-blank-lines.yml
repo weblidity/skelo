@@ -18,7 +18,8 @@ jobs:
 
       - name: Remove Blank Lines
         run: |
-          find . -type f \( -name "*.c" -o -name "*.cpp" -o -name "*.cs" -o -name "*.css" -o -name "*.html" -o -name "*.java" -o -name "*.js" -o -name "*.json" -o -name "*.md" -o -name "*.markdown" -o -name "*.py" -o -name "*.xml" -o -name "*.yaml" -o -name "*.yml" \) -not -path "./node_modules/*" -not -path "./.github/workflows/*" -exec bash -c 'if git ls-files {} >/dev/null 2>&1; then sed -i "/^\s*$/N;/^\s*$/D" {}; fi' \;
+          file_patterns=( "*.c" "*.cpp" "*.cs" "*.css" "*.html" "*.java" "*.js" "*.json" "*.md" "*.markdown" "*.py" "*.xml" "*.yaml" "*.yml" )
+          find . -type f \( -name "${file_patterns[@]}" \) -not -path "./node_modules/*" -not -path "./.github/workflows/*" -print0 | xargs -0 -t bash -c 'if git ls-files "$1" >/dev/null 2>&1; then sed -i "/^\s*$/N;/^\s*$/D" "$1"; fi' -- {}
 
       - name: Add Changes to Git
         run: git add --all
@@ -30,7 +31,7 @@ jobs:
 
       - name: Commit Changes
         run: |
-          git commit -m "Remove consecutive blank lines"
+          git commit -m "Remove consecutive blank lines in: $(git diff --name-only --cached)"
 
       - name: Push Changes
         uses: ad-m/github-push-action@master
