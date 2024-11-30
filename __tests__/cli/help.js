@@ -43,4 +43,3 @@ describe('index.js lists options in alphabetical order', () => {
       const longOptionA = a.match(/--\w+/)[0];
       const longOptionB = b.match(/--\w+/)[0];
       return longOptionA.localeCompare(longOptionB, undefined, { sensitivity: 'base' });
-    });
