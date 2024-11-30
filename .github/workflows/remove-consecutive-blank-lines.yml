@@ -25,7 +25,6 @@ jobs:
         with:
           commit_message: "Remove consecutive blank lines"
           file_pattern: ./**/*.{md,markdown,js,json,css}
-          pre_commit_command: "echo 'Files modified:' && git status"
 
 
 
