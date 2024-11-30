@@ -16,9 +16,12 @@ jobs:
           ref: ${{ github.ref }}
           persist-credentials: false
 
+      - name: List Files  # Re-added this step
+        run: ls -alR
+
       - name: Remove Blank Lines
         run: |
-          find . -type f \( -name "*.c" -o -name "*.cpp" -o -name "*.cs" -o -name "*.css" -o -name "*.html" -o -name "*.java" -o -name "*.js" -o -name "*.json" -o -name "*.md" -o -name "*.markdown" -o -name "*.py" -o -name "*.xml" -o -name "*.yaml" -o -name "*.yml" \) -not -path "./node_modules/*" -not -path "./.github/workflows/*" -exec bash -c 'if git ls-files {} >/dev/null 2>&1; then sed -i "/^\s*$/N;/^\s*$/D" {}; fi' \; # Reverted to simpler find command
+          find . -type f \( -name "*.c" -o -name "*.cpp" -o -name "*.cs" -o -name "*.css" -o -name "*.html" -o -name "*.java" -o -name "*.js" -o -name "*.json" -o -name "*.md" -o -name "*.markdown" -o -name "*.py" -o -name "*.xml" -o -name "*.yaml" -o -name "*.yml" \) -not -path "./node_modules/*" -not -path "./.github/workflows/*" -exec bash -c 'if git ls-files {} >/dev/null 2>&1; then sed -i "/^\s*$/N;/^\s*$/D" {}; fi' \;
 
       - name: Add Changes to Git
         run: git add --all
