@@ -1,5 +1,5 @@
 {
-  "name": "skelo",
+  "name": "skelo-cli",
   "version": "3.0.5",
   "description": "Scaffold Docusaurus documentation project using outline files.",
   "main": "index.js",
