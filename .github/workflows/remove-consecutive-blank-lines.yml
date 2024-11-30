@@ -3,7 +3,7 @@ name: Remove Consecutive Blank Lines
 on:
   push:
     paths:
-      - '**'  # Trigger on changes to any file
+      - '**' 
 
 jobs:
   remove-lines:
@@ -16,37 +16,9 @@ jobs:
           ref: ${{ github.ref }}
           persist-credentials: false
 
-      - name: List Files and Folders  # For debugging
-        run: ls -alR
-
-      - name: Find Files to Modify # For debugging
-        id: find-files
-        run: |
-          echo "::set-output name=located_files::$(find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" -o -name "*.html" -o -name "*.yaml" -o -name "*.yml" -o -name "*.xml" -o -name "*.py" -o -name "*.java" -o -name "*.cpp" -o -name "*.c" -o -name "*.cs" -o -name "*.sh" -o -name "*.bash" -o -name "*.zsh" -o -name "*.gitignore" -o -name "*.dockerignore" -o -name "Dockerfile" -o -name "*.npmignore" \) -not -path "./node_modules/*" -not -path "./.github/workflows/*")"
-
-      - name: Print Located Files # For debugging
-        run: echo "${{ steps.find-files.outputs.located_files }}"
-
-      - name: Check Line Endings Before # For debugging
-        run: file README.md
-
       - name: Remove Blank Lines
         run: |
-          find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" -o -name "*.html" -o -name "*.yaml" -o -name "*.yml" -o -name "*.xml" -o -name "*.py" -o -name "*.java" -o -name "*.cpp" -o -name "*.c" -o -name "*.cs" -o -name "*.sh" -o -name "*.bash" -o -name "*.zsh" -o -name "*.gitignore" -o -name "*.dockerignore" -o -name "Dockerfile" -o -name "*.npmignore" \) -not -path "./node_modules/*" -not -path "./.github/workflows/*" -exec bash -c 'if git ls-files {} >/dev/null 2>&1; then sed -i "/^\s*$/N;/^\s*$/D" {}; fi' \;
-
-      - name: Check Line Endings After # For debugging
-        run: file README.md
-
-      - name: Print README.md After and Store for commit # For debugging
-        run: |
-          cat README.md
-          cat README.md > README_after.md
-          git add README_after.md
-
-      - name: Dry Run sed on Individual Files # KEEP THIS FOR DEBUGGING
-        run: |
-           find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" -o -name "*.html" -o -name "*.yaml" -o -name "*.yml" -o -name "*.xml" -o -name "*.py" -o -name "*.java" -o -name "*.cpp" -o -name "*.c" -o -name "*.cs" -o -name "*.sh" -o -name "*.bash" -o -name "*.zsh" -o -name "*.gitignore" -o -name "*.dockerignore" -o -name "Dockerfile" -o -name "*.npmignore" \) -not -path "./node_modules/*" -not -path "./.github/workflows/*" -exec sed '/^\s*$/N;/^\s*$/D' {} \;
-
+          find . -type f \( -name "*.c" -o -name "*.cpp" -o -name "*.cs" -o -name "*.css" -o -name "*.html" -o -name "*.java" -o -name "*.js" -o -name "*.json" -o -name "*.md" -o -name "*.markdown" -o -name "*.py" -o -name "*.xml" -o -name "*.yaml" -o -name "*.yml" \) -not -path "./node_modules/*" -not -path "./.github/workflows/*" -exec bash -c 'if git ls-files {} >/dev/null 2>&1; then sed -i "/^\s*$/N;/^\s*$/D" {}; fi' \;
 
       - name: Add Changes to Git
         run: git add --all
@@ -65,4 +37,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
-
