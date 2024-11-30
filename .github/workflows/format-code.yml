@@ -1,18 +1,34 @@
-name: Format Code
+name: Remove Consecutive Blank Lines
 
 on: [push]
 
 jobs:
-  format-code:
+  remove-blank-lines:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Format code
+      - name: Remove consecutive blank lines
         run: |
-          prettier --write $(find . -type f -name "*.js")
-          # fmt -s -w 80 $(find . -type f -name "**/*.*")
-          # find . -type f -name "**/*.*" -exec sed -i '/^$/d' {} +
+          sed -i '/^$/d' $(find . -type f -name "*.txt")
+
+
+
+# name: Format Code
+
+# on: [push]
+
+# jobs:
+#   format-code:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+#       - name: Format code
+#         run: |
+#           prettier --write $(find . -type f -name "*.js")
+#           # fmt -s -w 80 $(find . -type f -name "**/*.*")
+#           # find . -type f -name "**/*.*" -exec sed -i '/^$/d' {} +
 
 
 # name: Format Code
