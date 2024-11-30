@@ -14,9 +14,27 @@ jobs:
           ref: ${{ github.ref }}
           persist-credentials: false
 
+      - name: List Files and Folders
+        run: ls -alR
+
+      - name: Find Files to Modify
+        id: find-files
+        run: |
+            echo "::set-output name=located_files::$(find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" -o -name "*.html" -o -name "*.yaml" -o -name "*.yml" -o -name "*.xml" -o -name "*.py" -o -name "*.java" -o -name "*.cpp" -o -name "*.c" -o -name "*.cs" -o -name "*.sh" -o -name "*.bash" -o -name "*.zsh" -o -name "*.gitignore" -o -name "*.dockerignore" -o -name "Dockerfile" -o -name "*.npmignore" \) -not -path "./node_modules/*" -not -path "./.github/workflows/*")"
+
+      - name: Print Located Files
+        run: echo "${{ steps.find-files.outputs.located_files }}"
+        
       - name: Remove Blank Lines
         run: |
           find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" -o -name "*.html" -o -name "*.yaml" -o -name "*.yml" -o -name "*.xml" -o -name "*.py" -o -name "*.java" -o -name "*.cpp" -o -name "*.c" -o -name "*.cs" -o -name "*.sh" -o -name "*.bash" -o -name "*.zsh" -o -name "*.gitignore" -o -name "*.dockerignore" -o -name "Dockerfile" -o -name "*.npmignore" \) -not -path "./node_modules/*" -not -path "./.github/workflows/*" -exec sed -i '/^\s*$/N;/^\s*$/D' {} +
+
+      - name: Dry Run sed  # KEEP THIS FOR DEBUGGING
+        run: |
+           find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" -o -name "*.html" -o -name "*.yaml" -o -name "*.yml" -o -name "*.xml" -o -name "*.py" -o -name "*.java" -o -name "*.cpp" -o -name "*.c" -o -name "*.cs" -o -name "*.sh" -o -name "*.bash" -o -name "*.zsh" -o -name "*.gitignore" -o -name "*.dockerignore" -o -name "Dockerfile" -o -name "*.npmignore" \) -not -path "./node_modules/*" -not -path "./.github/workflows/*" -exec sed '/^\s*$/N;/^\s*$/D' {} \;
+
+      - name: Add Changes to Git  # <--- This step was missing
+        run: git add .
 
       - name: Configure Git User and Email
         run: |
@@ -25,7 +43,6 @@ jobs:
 
       - name: Commit Changes
         run: |
-          git add .
           git commit -m "Remove consecutive blank lines"
 
       - name: Push Changes
@@ -33,7 +50,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
-
-
-
 
