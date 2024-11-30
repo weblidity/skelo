@@ -16,7 +16,7 @@ jobs:
 
       - name: Remove Blank Lines
         run: |
-          find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" -o -name "*.html" -o -name "*.yaml" -o -name "*.yml" -o -name "*.xml" -o -name "*.py" -o -name "*.java" -o -name "*.cpp" -o -name "*.c" -o -name "*.cs" -o -name "*.sh" -o -name "*.bash" -o -name "*.zsh" -o -name "*.gitignore" -o -name "*.dockerignore" -o -name "Dockerfile" -o -name "*.npmignore" \) -not -path "./node_modules/*" -exec sed -i '/^\s*$/N;/^\s*$/D' {} +
+          find . -type f \( -name "*.md" -o -name "*.markdown" -o -name "*.js" -o -name "*.json" -o -name "*.css" -o -name "*.html" -o -name "*.yaml" -o -name "*.yml" -o -name "*.xml" -o -name "*.py" -o -name "*.java" -o -name "*.cpp" -o -name "*.c" -o -name "*.cs" -o -name "*.sh" -o -name "*.bash" -o -name "*.zsh" -o -name "*.gitignore" -o -name "*.dockerignore" -o -name "Dockerfile" -o -name "*.npmignore" \) -not -path "./node_modules/*" -not -path "./.github/workflows/*" -exec sed -i '/^\s*$/N;/^\s*$/D' {} +
 
       - name: Configure Git User and Email
         run: |
@@ -37,4 +37,3 @@ jobs:
 
 
 
-          
