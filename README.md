@@ -4,7 +4,7 @@
 
 
 
-
+                     
 Scaffold documentation projects for Docusaurus from outline files.
 
 [![npm](https://img.shields.io/npm/v/skelo-cli)](https://www.npmjs.com/package/skelo-cli)
