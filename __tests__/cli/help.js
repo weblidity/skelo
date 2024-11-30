@@ -45,4 +45,3 @@ describe('index.js lists options in alphabetical order', () => {
       return longOptionA.localeCompare(longOptionB, undefined, { sensitivity: 'base' });
     });
     expect(options).toEqual(sortedOptions);
-  });

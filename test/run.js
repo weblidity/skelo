@@ -9,4 +9,3 @@ const {code, stdout, stderr} = shell.exec('node ../index.js ../test/**/*.outline
 
 shell.echo('rem ===============');
 shell.echo("rem validate with specifid patterns and verbose output");
-shell.echo('rem ===============');
