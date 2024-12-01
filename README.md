@@ -97,3 +97,10 @@ Skelo uses the following dependencies:
 - [commander](https://www.npmjs.com/package/commander)
 - [glob](https://www.npmjs.com/package/glob)
 - [handlebars](https://www.npmjs.com/package/handlebars)
+- [jsonschema](https://www.npmjs.com/package/jsonschema)
+- [mkdirp](https://www.npmjs.com/package/mkdirp)
+- [path](https://www.npmjs.com/package/path)
+- [shelljs](https://www.npmjs.com/package/shelljs)
+- [winston](https://www.npmjs.com/package/winston)
+- [yamljs](https://www.npmjs.com/package/yamljs)
+
