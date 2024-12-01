@@ -238,4 +238,3 @@
                                         "$ref": "#/definitions/basicItem"
                                     },
                                     {
-                                        "$ref": "#/definitions/headingItem"
