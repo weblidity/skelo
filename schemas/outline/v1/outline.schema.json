@@ -235,4 +235,3 @@
                                         "type": "string"
                                     },
                                     {
-                                        "$ref": "#/definitions/basicItem"

@@ -1,7 +1,6 @@
 M  .vscode/launch.json
 M  README.md
  M files-changed.txt
-M  lib/skelo-utils.js
 M  package-lock.json
 M  package.json
 M  schemas/outline/v1/outline.schema.json
