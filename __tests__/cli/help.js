@@ -37,4 +37,3 @@ describe('index.js lists options in alphabetical order', () => {
   const indexPath = 'index.js';
 
   it('should list options in alphabetical order', () => {
-    const { stdout } = exec(`node ${indexPath} --help`, { silent: true });
