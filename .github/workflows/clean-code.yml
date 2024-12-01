@@ -1,0 +1,72 @@
+name: Clean Code
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+      - name: Clean Code Files
+        run: |
+          find . -not -path "./.github/*" \( -name "*.md" -o -name "*.json" -o -name "*.js" -o -name "*.css" -o -name "*.hbs" -o -name ".handlebars" -o -name "*.java" -o -name "*.yaml" -o -name "*.yml" \) -print0 | while IFS= read -r -d $'\0' file; do
+            sed -i -e 's/^[[:space:]]*$//' -e '/./,$!d' -e '$d' -e '/^$/N;/^\n$/D' -e 's/[[:space:]]*$//' "$file"
+            echo "Cleaned: $file"
+            git add "$file"
+          done
+      - name: Check for modified files
+        id: check_changes
+        run: |
+          git status --porcelain > files-changed.txt
+          CHANGED_FILES=$(wc -l < files-changed.txt)
+          echo "changed_files=$CHANGED_FILES" >> $GITHUB_ENV # Use $GITHUB_ENV
+      - name: Commit Changes (if any)
+        if: env.changed_files > 0  # Access using env.
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Cleaned up code files"
+
+
+
+# name: Clean Code
+
+# on:
+#   push:
+#     branches: [main]
+#   pull_request:
+#     branches: [main]
+
+# jobs:
+#   clean:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           persist-credentials: true
+#           fetch-depth: 0
+#       - name: Clean Code Files
+#         run: |
+#           find . -not -path "./.github/*" \( -name "*.md" -o -name "*.json" -o -name "*.js" -o -name "*.css" -o -name "*.hbs" -o -name ".handlebars" -o -name "*.java" -o -name "*.yaml" -o -name "*.yml" \) -print0 | while IFS= read -r -d $'\0' file; do
+#             sed -i -e 's/^[[:space:]]*$//' -e '/./,$!d' -e '$d' -e '/^$/N;/^\n$/D' -e 's/[[:space:]]*$//' "$file" # Remove leading/trailing and consecutive empty lines
+#             echo "Cleaned: $file"
+#             git add "$file"
+#           done
+#       - name: Check for modified files
+#         id: check_changes
+#         run: |
+#           git status --porcelain
+#           git diff --cached
+#           CHANGED_FILES=$(git status --porcelain | wc -l)
+#           echo "::set-output name=changed_files::$CHANGED_FILES"
+#       - name: Commit Changes (if any)
+#         if: steps.check_changes.outputs.changed_files > 0
+#         uses: stefanzweifel/git-auto-commit-action@v4
+#         with:
+#           commit_message: "Cleaned up code files"
