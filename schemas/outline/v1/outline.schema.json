@@ -232,4 +232,3 @@
                             "items": {
                                 "anyOf": [
                                     {
-                                        "type": "string"
