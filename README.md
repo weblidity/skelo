@@ -3,6 +3,7 @@
 Scaffold Docusaurus documentation project using outline files.
 
 ![License](https://img.shields.io/badge/license-ISC-green)
+[![Node.js CI](https://github.com/weblidity/skelo-cli/actions/workflows/node.js.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/node.js.yml)
 
 ## Description
 
