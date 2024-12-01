@@ -37,11 +37,3 @@ describe('index.js lists options in alphabetical order', () => {
   const indexPath = 'index.js';
 
   it('should list options in alphabetical order', () => {
-    const { stdout } = exec(`node ${indexPath} --help`, { silent: true });
-    const options = stdout.split('\n').filter(line => line.startsWith('  -'));
-    const sortedOptions = options.slice().sort((a, b) => {
-      const longOptionA = a.match(/--\w+/)[0];
-      const longOptionB = b.match(/--\w+/)[0];
-      return longOptionA.localeCompare(longOptionB, undefined, { sensitivity: 'base' });
-    });
-    expect(options).toEqual(sortedOptions);

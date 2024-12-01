@@ -8,4 +8,3 @@ shell.echo('rem ===============');
 const {code, stdout, stderr} = shell.exec('node ../index.js ../test/**/*.outline.yaml ../test/**/*.outline.yml --verbose --');
 
 shell.echo('rem ===============');
-shell.echo("rem validate with specifid patterns and verbose output");

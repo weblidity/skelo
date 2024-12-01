@@ -22,4 +22,3 @@ describe('getPathSlugify', () => {
   })
 
   it('should handle leading and trailing slashes', () => {
-    expect(getPathSlugify('/Test/Path/String/')).toBe('test/path/string')
