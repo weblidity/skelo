@@ -102,4 +102,3 @@ Skelo uses the following dependencies:
 - [path](https://www.npmjs.com/package/path)
 - [shelljs](https://www.npmjs.com/package/shelljs)
 - [winston](https://www.npmjs.com/package/winston)
-- [yamljs](https://www.npmjs.com/package/yamljs)
