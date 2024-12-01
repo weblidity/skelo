@@ -95,4 +95,3 @@ Skelo is distributed under the ISC License. See `LICENSE` for more information.
 Skelo uses the following dependencies:
 
 - [commander](https://www.npmjs.com/package/commander)
-- [glob](https://www.npmjs.com/package/glob)
