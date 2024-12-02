@@ -2,6 +2,8 @@
 
 const {generateSidebarsFile, buildSidebarsLayout} = require('./lib/skelo-utils');
 
+// const logger = require('./lib/skelo-logger');
+
 const { Command} = require('commander');
 
 const fallbackPatterns = [
@@ -48,7 +50,6 @@ program
   })
 
   .action((patterns, options) => {
-    
     const generatedSidebarsLayout = buildSidebarsLayout(patterns, options);
     generateSidebarsFile(generatedSidebarsLayout, options);
   })
