@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const {generateSidebarsFile} = require('./lib/skelo-utils');
+const {generateSidebarsFile, buildSidebarsLayout} = require('./lib/skelo-utils');
 
 const { Command} = require('commander');
 
@@ -48,11 +48,14 @@ program
   })
 
   .action((patterns, options) => {
-    console.log(patterns, options)
+    
+    // console.log("🚀 ~ .action ~ patterns:", patterns)
+    // console.log("🚀 ~ .action ~ options:", options)
 
-    const generatedSidebarsLayout = {};
+    const generatedSidebarsLayout = buildSidebarsLayout(patterns, options);
     generateSidebarsFile(generatedSidebarsLayout, options);
   })
+
 
 
 program
@@ -73,8 +76,8 @@ program
 
 
 
-// program.parse("node index.js build --verbose".split(' '))
+program.parse("node index.js build --verbose".split(' '))
 // program.parse("node index.js validate --verbose".split(' '))
 // program.parse("node index.js --help".split(' '))
 // program.parse("node index.js help build".split(' '))
-program.parse();
+// program.parse();
