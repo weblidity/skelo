@@ -1,4 +1,5 @@
 const findDuplicatedSidebarLabels = require('../../lib/skelo-utils').findDuplicatedSidebarLabels;
+// const findDuplicatedSidebarLabels = require('./findDuplicatedSidebarLabels');
 
 describe('findDuplicatedSidebarLabels', () => {
   it('throws an error when validFiles is not an array', () => {
@@ -10,29 +11,23 @@ describe('findDuplicatedSidebarLabels', () => {
   });
 
   it('throws an error when sidebars is not an array of objects', () => {
-    const originalGetSidebars = global.getSidebars;
-    global.getSidebars = () => ({ sidebars: 'not an array' });
-    expect(() => findDuplicatedSidebarLabels(['file1'])).toThrowError('findDuplicatedSidebarLabels: sidebars must be an array of objects.');
-    global.getSidebars = originalGetSidebars;
+    const getSidebars = jest.fn(() => ({ sidebars: 'not an array' }));
+    expect(() => findDuplicatedSidebarLabels(['file1'], getSidebars)).toThrowError('findDuplicatedSidebarLabels: sidebars must be an array of objects.');
   });
 
 //   it('returns an empty array when there are no duplicates', () => {
-//     const originalGetSidebars = global.getSidebars;
-//     global.getSidebars = () => ({ sidebars: [{ label: 'unique' }] });
-//     expect(findDuplicatedSidebarLabels(['file1'])).toEqual([]);
-//     global.getSidebars = originalGetSidebars;
+//     const getSidebars = jest.fn(() => ({ sidebars: [{ label: 'unique' }] }));
+//     expect(findDuplicatedSidebarLabels(['file1'], getSidebars)).toEqual([]);
 //   });
 
 //   it('returns an array of duplicates when there are duplicate labels', () => {
-//     const originalGetSidebars = global.getSidebars;
-//     global.getSidebars = (file) => {
+//     const getSidebars = jest.fn((file) => {
 //       if (file === 'file1') {
 //         return { sidebars: [{ label: 'duplicate' }] };
 //       } else {
 //         return { sidebars: [{ label: 'duplicate' }] };
 //       }
-//     };
-//     expect(findDuplicatedSidebarLabels(['file1', 'file2'])).toEqual(['duplicate']);
-//     global.getSidebars = originalGetSidebars;
+//     });
+//     expect(findDuplicatedSidebarLabels(['file1', 'file2'], getSidebars)).toEqual(['duplicate']);
 //   });
 });
