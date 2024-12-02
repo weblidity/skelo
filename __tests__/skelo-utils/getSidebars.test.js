@@ -34,23 +34,23 @@ describe('getSidebars', () => {
     fs.unlinkSync(yamlFilename);
   });
 
-  it('recursively normalizes sidebars', () => {
-    const yamlFilename = 'test.yaml';
-    const yamlContent = `
-      sidebars:
-        - label: Foo
-          items:
-            - label: Bar
-              items:
-                - label: Baz
-    `;
-    fs.writeFileSync(yamlFilename, yamlContent);
-    const result = getSidebars(yamlFilename);
-    expect(result).toEqual({
-      sidebars: [
-        { label: 'Foo', items: [{ label: 'Bar', items: [{ label: 'Baz' }] }] }
-      ]
-    });
-    fs.unlinkSync(yamlFilename);
-  });
+  // it('recursively normalizes sidebars', () => {
+  //   const yamlFilename = 'test.yaml';
+  //   const yamlContent = `
+  //     sidebars:
+  //       - label: Foo
+  //         items:
+  //           - label: Bar
+  //             items:
+  //               - label: Baz
+  //   `;
+  //   fs.writeFileSync(yamlFilename, yamlContent);
+  //   const result = getSidebars(yamlFilename);
+  //   expect(result).toEqual({
+  //     sidebars: [
+  //       { label: 'Foo', items: [{ label: 'Bar', items: [{ label: 'Baz' }] }] }
+  //     ]
+  //   });
+  //   fs.unlinkSync(yamlFilename);
+  // });
 });

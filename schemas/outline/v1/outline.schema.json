@@ -232,3 +232,18 @@
                             "items": {
                                 "anyOf": [
                                     {
+                                        "$ref": "#/definitions/headingItem"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "required": [
+                        "headings"
+                    ]
+                }
+            ]
+        }
+    }
+}
+
