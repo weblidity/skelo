@@ -1,5 +1,0 @@
- M files-changed.txt
-M  package-lock.json
-M  package.json
-M  schemas/outline/v1/outline.schema.json
-M  test/complex.outline.yaml
