@@ -54,8 +54,6 @@ program
     generateSidebarsFile(generatedSidebarsLayout, options);
   })
 
-
-
 program
   .command('validate')
   .alias('v')
@@ -69,13 +67,8 @@ program
     width: 100
   })
 
-
-
-
-
-
-program.parse("node index.js build --verbose".split(' '))
+// program.parse("node index.js build --verbose".split(' '))
 // program.parse("node index.js validate --verbose".split(' '))
 // program.parse("node index.js --help".split(' '))
 // program.parse("node index.js help build".split(' '))
-// program.parse();
+program.parse();
