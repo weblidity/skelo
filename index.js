@@ -49,9 +49,6 @@ program
 
   .action((patterns, options) => {
     
-    // console.log("🚀 ~ .action ~ patterns:", patterns)
-    // console.log("🚀 ~ .action ~ options:", options)
-
     const generatedSidebarsLayout = buildSidebarsLayout(patterns, options);
     generateSidebarsFile(generatedSidebarsLayout, options);
   })
