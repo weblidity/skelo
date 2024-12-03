@@ -9,10 +9,11 @@ Scaffold Docusaurus documentation project using outline files.
 [![npm](https://img.shields.io/npm/v/skelo-cli.svg)](https://www.npmjs.com/package/skelo-cli)
 [![npm](https://img.shields.io/npm/dm/skelo-cli.svg)](https://www.npmjs.com/package/skelo-cli)
 [![Build Status](https://github.com/weblidity/skelo-cli/actions/workflows/node.js.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/node.js.yml)
-[![Coverage Status](https://coveralls.io/repos/github/weblidity/skelo-cli/badge.svg?branch=main)](https://coveralls.io/github/weblidity/skelo-cli?branch=main)  <!--  Example, adapt if using Coveralls -->
 [![Known Vulnerabilities](https://snyk.io/test/github/weblidity/skelo-cli/badge.svg)](https://snyk.io/test/github/weblidity/skelo-cli) <!-- Example, adapt to your vulnerability scanner -->
 ![License](https://img.shields.io/badge/license-ISC-green)
+[![njsscan sarif](https://github.com/weblidity/skelo-cli/actions/workflows/njsscan.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/njsscan.yml)
 <!-- [![npm](https://img.shields.io/npm/l/skelo-cli.svg)](https://www.npmjs.com/package/skelo-cli) -->
+<!-- [![Coverage Status](https://coveralls.io/repos/github/weblidity/skelo-cli/badge.svg?branch=main)](https://coveralls.io/github/weblidity/skelo-cli?branch=main) --><!--  Example, adapt if using Coveralls -->
 
 
 ## Description
