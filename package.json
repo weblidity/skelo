@@ -7,8 +7,7 @@
     "skelo": "./index.js"
   },
   "scripts": {
-    "test": "jest --passWithNoTests",
-    "test:build": "node test/run.js"
+    "test": "jest"
   },
   "author": "weblidity",
   "license": "ISC",
