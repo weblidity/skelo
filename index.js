@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const {generateSidebarsFile, buildSidebarsLayout} = require('./lib/skelo-utils');
+const {generateSidebarsFile, buildSidebarsLayout, validateFilesAndShowDuplicatedLabels} = require('./lib/skelo-utils');
 
 const { Command} = require('commander');
 
@@ -58,6 +58,12 @@ program
   .description('Validate outline files')
   .argument('[patterns...]', 'Glob patterns for outline files')
   .option('-v, --verbose', 'Verbose output')
+  .option('--fallback-patterns <patterns...>', 'Fallback glob patterns for outline files', fallbackPatterns)
+  .option('--schemaFilename <path>', 'Schema file', 'schemas/outline/v1/outline.schema.json')
+  .action((patterns, options) => {
+    validateFilesAndShowDuplicatedLabels(patterns, options);
+  })
+
 
   .configureHelp({
     sortSubcommands: true,
@@ -65,5 +71,6 @@ program
     width: 100
   })
 
-  program.parse("node index.js -d test/website/docs -s test/website/sidebars.js --verbose".split(" "))
-// program.parse();
+  // program.parse("node index.js validate  --verbose".split(" "))
+  // program.parse("node index.js -d test/website/docs -s test/website/sidebars.js --verbose".split(" "))
+program.parse();
