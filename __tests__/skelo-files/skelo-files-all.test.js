@@ -64,24 +64,24 @@ describe('skelo-files', () => {
     describe('getPathSlugify', () => {
         it('should slugify a Windows path', () => {
             path.parse.mockReturnValue({ dir: 'c:\\Users\\test\\OneDrive\\Documents' });
-            expect(getPathSlugify('c:\\Users\\test\\OneDrive\\Documents\\file.md')).toBe('c/users/test/onedrive/documents');
+            expect(getPathSlugify('c:\\Users\\test\\OneDrive\\Documents\\')).toBe('c/users/test/onedrive/documents');
         });
 
         it('should slugify a Unix path', () => {
             path.parse.mockReturnValue({ dir: '/Users/test/Documents' });
 
-            expect(getPathSlugify('/Users/test/Documents/file.md')).toBe('users/test/documents');
+            expect(getPathSlugify('/Users/test/Documents/')).toBe('users/test/documents');
         });
 
         it('should remove extra slashes', () => {
             path.parse.mockReturnValue({ dir: '//Users//test//Documents//' });
 
-            expect(getPathSlugify('//Users//test//Documents//file.md')).toBe('users/test/documents');
+            expect(getPathSlugify('//Users//test//Documents//')).toBe('users/test/documents');
         });
 
         it('should slugify each segment of the path', () => {
             path.parse.mockReturnValue({ dir: 'Users/Test User/Documents' });
-            expect(getPathSlugify('Users/Test User/Documents/File Name.md')).toBe('users/test-user/documents');
+            expect(getPathSlugify('Users/Test User/Documents')).toBe('users/test-user/documents');
         });
 
         it('should throw an error if input is not a string', () => {
