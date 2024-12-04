@@ -9,7 +9,7 @@ sidebars:
           - label: "Heading 2"
             items:
               # - label: "Sub-item 1"
-                brief: "Sub-item 1 brief"
+              #   brief: "Sub-item 1 brief"
               - label: "Sub-item 2"
 
   - label: "Sidebar with items"
