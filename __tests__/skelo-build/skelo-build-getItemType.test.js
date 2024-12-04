@@ -15,12 +15,12 @@ describe('getItemType', () => {
   });
 
   it('returns LINK for item with href property', () => {
-    const item = { href: 'https://example.com' };
+    const item = {label: 'Link Item', href: 'https://example.com' };
     expect(getItemType(item)).toBe(LINK);
   });
 
   it('returns CATEGORY for item with items array property', () => {
-    const item = { items: [{}, {}] };
+    const item = {label: 'Category Item', items: [{}, {}] };
     expect(getItemType(item)).toBe(CATEGORY);
   });
 
