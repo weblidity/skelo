@@ -1,8 +1,9 @@
 sidebars:
-  - "Empty sidebar"
+  # - "Empty sidebar"
   - label: "Unique Sidebar with items"
     items:
       - label: "Item 1"
+      - label: "Item 2"
   - label: "Sidebar with items"
     items:
       - label: "Item 1"

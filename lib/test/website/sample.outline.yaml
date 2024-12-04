@@ -1,5 +1,5 @@
 sidebars:
-  - "Empty sidebar"
+  # - "Empty sidebar"
   - label: "Sidebar with items"
     items:
       - label: "Item 1"
