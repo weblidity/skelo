@@ -1,0 +1,10 @@
+sidebars:
+  - "Empty sidebar"
+  - label: "Sidebar with items"
+    items:
+      - label: "Item 1"
+        items:
+          - label: "Sub-item 1"
+          - label: "Sub-item 2"
+      - label: "Item 2"
+        href: "item-2"

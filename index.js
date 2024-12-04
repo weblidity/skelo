@@ -65,4 +65,5 @@ program
     width: 100
   })
 
-program.parse();
+  program.parse("node index.js -d test/website/docs -s test/website/sidebars.js --verbose".split(" "))
+// program.parse();

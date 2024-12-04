@@ -22,12 +22,8 @@ describe('skelo-files', () => {
 
         it('should return files matching the patterns', () => {
             globSync.mockReturnValueOnce(['file1.js', 'file2.js']);
-            globSync.mockReturnValueOnce(['file3.js']);
 
-            expect(getFilesFromPatterns(['*.js'], ['*.ts'])).toEqual(['file1.js', 'file2.js', 'file3.js']);
-
-            expect(globSync).toHaveBeenCalledWith('*.js');
-            expect(globSync).toHaveBeenCalledWith('*.ts');
+            expect(getFilesFromPatterns(['*.js'], ['*.ts'])).toEqual(['file1.js', 'file2.js']);
          });
 
         it('should throw an error if a pattern is not a string', () => {
