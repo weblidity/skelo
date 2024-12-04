@@ -1,8 +1,17 @@
 sidebars:
-  - "Empty sidebar"
+  # - "Empty sidebar"
   - label: "Unique Sidebar with items"
     items:
       - label: "Item 1"
+      - label: "Item 2"
+        headings:
+          # - label: "Heading 1"
+          - label: "Heading 2"
+            items:
+              # - label: "Sub-item 1"
+                brief: "Sub-item 1 brief"
+              - label: "Sub-item 2"
+
   - label: "Sidebar with items"
     items:
       - label: "Item 1"
