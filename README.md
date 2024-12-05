@@ -87,16 +87,19 @@ $ skelo -V
 
 ```bash
 $ skelo -h
-Usage: skelo [options] [command]
+Usage: skelo-cli [options] [command]
+
+Scaffold Docusaurus documentation project using outline files.
 
 Options:
-  -V, --version     output the version number
-  -h, --help        display help for skelo
+  -h, --help                          display help for command
+  -V, --version                       output the version number
 
 Commands:
-  build [options]   Build Docusaurus documentation from outline files.
-  init [options]    Create a default configuration file.
-  validate [options] Validate outline files.
+  build|b [options] [patterns...]     Build Docusaurus documentation
+  help [command]                      display help for command
+  init|i [configFile]                 Create a default configuration file
+  validate|v [options] [patterns...]  Validate outline files
 
 Options can be specified via options or config file.
 See skelo <command> --help for more info on a command.
