@@ -45,6 +45,7 @@ Scaffold Docusaurus documentation project using outline files.
   - [General Error Handling Best Practices:](#general-error-handling-best-practices)
 - [Troubleshooting](#troubleshooting)
 - [Related Tools](#related-tools)
+- [Configuration File](#configuration-file)
 - [License](#license)
 
 ## Installation
@@ -434,6 +435,58 @@ While `skelo-cli` offers a streamlined approach to scaffolding Docusaurus docume
 
 This list is not exhaustive, but it provides a starting point for exploring the landscape of tools available for generating documentation from structured data.  `skelo-cli` differentiates itself by focusing specifically on Docusaurus, providing an easy-to-use CLI, schema validation, and templating capabilities for greater control over the generated output.
 
+## Configuration File
+
+`skelo-cli` supports a configuration file (`skelo.config.json` by default) to store common options and avoid repeatedly specifying them on the command line. This file uses the JSON format.
+
+**Using a Configuration File:**
+
+You can specify a custom configuration file using the `-c` or `--config` option with either the `build` or `validate` command:
+
+```bash
+skelo build '**/*.outline.md' -c my-config.json
+skelo validate '**/*.outline.md' --config ./configs/custom-config.json
+```
+
+**Configuration File Structure:**
+
+The configuration file can contain any of the options available via command-line arguments. For example:
+
+```json
+{
+  "verbose": true,
+  "docs": "website/docs",
+  "sidebarsFilename": "sidebars.ts",
+  "fallbackPatterns": ["existing-docs/**/*.md"],
+  "templates": "./my-templates",
+  "templateExtension": ".ejs",
+  "schemaFilename": "./schemas/custom-schema.json",
+  "templateNames": {
+    "SIDEBARS_TEMPLATE": "custom-sidebars",
+    "TOPIC_TEMPLATE": "custom-topic",
+    "HEADING_TEMPLATE": "custom-heading"
+  }
+}
+```
+
+**How Settings Work:**
+
+* **Precedence:** When a configuration file is specified using --config, the settings defined in the file override any default values and any options provided directly on the command line. This allows you to define common settings in the file and selectively override them on the command line when needed.
+* **Missing File:** If the specified configuration file does not exist, skelo-cli will log a warning and fall back to the default options. This ensures a smooth experience even if the configuration file is accidentally deleted or misplaced. If no configuration is provided by using the -c or --config option, then skelo-cli will search for a skelo.config.json in the current folder. If this file is missing, then default values will be used.
+* **Default Values:** If neither a configuration file is specified nor found, skelo-cli uses a set of built-in default values. These defaults are designed to work in most common scenarios.
+* **Partial Configuration:** You don't need to specify all options in the configuration file. Any omitted options will use their default values or values specified on the command line.
+
+Example:
+
+If `my-config.json` contains `"docs": "website/docs"` and you run:
+
+```bash
+skelo build **/*.outline.yaml -c my-config.json --docs project-docs
+```
+
+The `docs` directory used will be `website/docs` (from the config file) because the configuration file overrides command-line options.
+
+This configuration file mechanism makes it easy to manage settings for your Docusaurus documentation builds, particularly for complex projects with many options.
 
 
 ## License
