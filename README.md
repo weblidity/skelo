@@ -159,7 +159,7 @@ Options:
   -h, --help                         Display help for command
 ```
 
-### Basic Usage - Building Documentation
+### `build` - Building Skeletion Documentation
 
 The simplest way to use `skelo build` is to provide a glob pattern matching your outline files:
 
@@ -232,7 +232,7 @@ module.exports = {
 };
 ```
 
-### Validation
+### `validate` - Outline Files Validation
 
 The `skelo validate` command checks the validity of your outline files against a schema:
 
@@ -241,6 +241,46 @@ skelo validate **/*.outline.yaml --schemaFilename ./schemas/custom-outline.schem
 ```
 
 This validates all outline files against the specified schema file, ensuring data integrity and consistency. Any validation errors will be reported to the console.
+
+### `init` - Initialize Configuration File
+
+The `skelo init` command creates a configuration file for `skelo`:
+
+```bash
+skelo init
+```
+This command creates `skelo.config.json` configuration file in current working file.
+
+```bash
+skelo init my-skelo.config.json
+```
+This command creates `my-skelo.config.json` configuration file in current working file.
+
+The configuration file looks as follows:
+
+```json
+{
+  "config": "./skelo.config.json",
+  "docs": "docs",
+  "fallbackPatterns": [
+    "**/*.outline.yaml",
+    "**/*.outline.yml",
+    "__outlines__/**/*.yaml",
+    "__outlines__/**/*.yml"
+  ],
+  "schemaFilename": "schemas/outline/v1/outline.schema.json",
+  "sidebarsFilename": "sidebars.js",
+  "templateExtension": ".hbs",
+  "templateNames": {
+    "HEADING_TEMPLATE": "heading",
+    "SIDEBARS_TEMPLATE": "sidebars",
+    "TOPIC_TEMPLATE": "topic"
+  },
+  "templates": "templates",
+  "verbose": false
+}
+```
+
 
 ## Outline File Format
 
