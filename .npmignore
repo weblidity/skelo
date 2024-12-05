@@ -1,0 +1,53 @@
+# Ignore files and directories typically not needed in a published npm package
+
+# Development-related files
+.git
+.github
+*.md
+LICENSE.md  # If you have a separate LICENSE file, uncomment this
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Build artifacts and temporary files
+dist/
+build/
+*.log
+*.lock
+*.tmp
+
+# Test files and directories (if not included in the published package)
+test/
+coverage/
+*.test.js
+*.spec.js
+
+# Configuration files (potentially sensitive information)
+.env
+*.config.js
+*.config.json
+
+# Documentation source files (the generated documentation should be enough)
+docs/
+website/
+
+# Local dependencies (these should be installed by the user)
+node_modules/
+
+# Example configurations (users should create their own)
+examples/
+
+# Other files that might be specific to your project
+TODO
+CONTRIBUTING.md
+CHANGELOG.md
+
+# If you use TypeScript
+*.ts
+tsconfig.json
+
+
+# Files specific to skelo-cli (adapt as needed):
+schemas/ # If schemas are to be installed separately. Otherwise remove this line.
+
