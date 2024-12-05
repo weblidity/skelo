@@ -1,6 +1,6 @@
 {
   "name": "skelo-cli",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "Scaffold Docusaurus documentation project using outline files.",
   "main": "index.js",
   "bin": {
@@ -34,7 +34,7 @@
   "author": {
     "name": "Ion Gireada",
     "email": "ion.gireada[at]weblidity.ro",
-    "url": "https://github.com/weblidity" 
+    "url": "https://github.com/weblidity"
   },
   "license": "ISC",
   "dependencies": {
