@@ -1,7 +1,20 @@
 {
-    "templateNames": {
-        "SIDEBARS_TEMPLATE": "sidebars",
-        "TOPIC_TEMPLATE": "topic",
-        "HEADING_TEMPLATE": "heading"
-    }
+  "config": "./skelo.config.json",
+  "docs": "docs",
+  "fallbackPatterns": [
+    "**/*.outline.yaml",
+    "**/*.outline.yml",
+    "__outlines__/**/*.yaml",
+    "__outlines__/**/*.yml"
+  ],
+  "schemaFilename": "schemas/outline/v1/outline.schema.json",
+  "sidebarsFilename": "sidebars.js",
+  "templateExtension": ".hbs",
+  "templateNames": {
+    "HEADING_TEMPLATE": "heading",
+    "SIDEBARS_TEMPLATE": "sidebars",
+    "TOPIC_TEMPLATE": "topic"
+  },
+  "templates": "templates",
+  "verbose": false
 }
