@@ -9,7 +9,33 @@
   "scripts": {
     "test": "jest"
   },
-  "author": "weblidity",
+  "keywords": [
+    "docusaurus",
+    "documentation",
+    "scaffolding",
+    "generator",
+    "cli",
+    "command-line",
+    "yaml",
+    "markdown",
+    "static site generator",
+    "ssg",
+    "docs",
+    "outline",
+    "template",
+    "handlebars",
+    "schema",
+    "validation"
+  ],
+  "homepage": "https://github.com/weblidity/skelo-cli",
+  "bugs": {
+    "url": "https://github.com/weblidity/skelo-cli/issues"
+  },
+  "author": {
+    "name": "Ion Gireada",
+    "email": "ion.gireada[at]weblidity.ro",
+    "url": "https://github.com/weblidity" 
+  },
   "license": "ISC",
   "dependencies": {
     "ajv": "^8.17.1",
