@@ -128,13 +128,15 @@ Init Command
 
 ```bash
 $ skelo init -h # or help init
+Usage: skelo-cli init|i [options] [configFile]
 
-Usage: skelo init [options] [configFile]
+Create a default configuration file
 
-Create a default configuration file.
+Arguments:
+  configFile  Path to the configuration file (default: "./skelo.config.json")
 
 Options:
-  -h, --help  Display help for command
+  -h, --help  display help for command
 ```
 
 Validate Command
