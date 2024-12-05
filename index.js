@@ -71,7 +71,7 @@ program
   .option('--templates <path>', 'Templates directory', 'templates')
   .option('--templateExtension <ext>', 'Template file extension', '.hbs')
   .option('--schemaFilename <path>', 'Schema file', 'schemas/outline/v1/outline.schema.json')
-
+  .option('-c, --config <path>', 'Path to the configuration file', SKELO_CONFIG_FILE) // Add config option
   .configureHelp({
     sortSubcommands: true,
     sortOptions: true,
@@ -79,9 +79,9 @@ program
   })
 
   .action((patterns, options) => {
-    const configFile = path.resolve(SKELO_CONFIG_FILE);
-    const config = getConfiguration(configFile);
-    const combinedOptions = {...options, ...config} // Combine config with CLI options
+    const configFilePath = path.resolve(options.config); // Resolve the provided config path
+    const config = getConfiguration(configFilePath);    // Use the resolved path
+    const combinedOptions = { ...config, ...options }; // Config overrides options
     const generatedSidebarsLayout = buildSidebarsLayout(patterns, combinedOptions);
     generateSidebarsFile(generatedSidebarsLayout, combinedOptions);
   })
@@ -94,10 +94,11 @@ program
   .option('-v, --verbose', 'Verbose output')
   .option('--fallback-patterns <patterns...>', 'Fallback glob patterns for outline files', FALLBACK_PATTERNS)
   .option('--schemaFilename <path>', 'Schema file', 'schemas/outline/v1/outline.schema.json')
+  .option('-c, --config <path>', 'Path to the configuration file', SKELO_CONFIG_FILE) // Add config option
   .action((patterns, options) => {
-    const configFile = path.resolve(SKELO_CONFIG_FILE);
-    const config = getConfiguration(configFile);
-    const combinedOptions = {...options, ...config}; // Combine config with CLI options
+    const configFilePath = path.resolve(options.config); // Resolve the provided config path
+    const config = getConfiguration(configFilePath);    // Use the resolved path
+    const combinedOptions = { ...config, ...options }; // Config overrides options
     validateFilesAndShowDuplicatedLabels(patterns, combinedOptions);
   })
 
