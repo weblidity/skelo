@@ -1,0 +1,7 @@
+{
+    "templateNames": {
+        "SIDEBARS_TEMPLATE": "sidebars",
+        "TOPIC_TEMPLATE": "topic",
+        "HEADING_TEMPLATE": "heading"
+    }
+}
