@@ -1,19 +1,9 @@
 #!/usr/bin/env node
 
-const {generateSidebarsFile, buildSidebarsLayout, validateFilesAndShowDuplicatedLabels} = require('./lib/skelo-utils');
+const { generateSidebarsFile, buildSidebarsLayout, validateFilesAndShowDuplicatedLabels } = require('./lib/skelo-utils');
 const fs = require('fs');
 const path = require('path');
-const {Command} = require('commander');
-
-const SKELO_CONFIG_FILE = './skelo.config.json';
-
-const DEFAULT_TEMPLATE_NAMES = {
-  "templateNames": {
-    "SIDEBARS_TEMPLATE": "sidebars",
-    "TOPIC_TEMPLATE": "topic",
-    "HEADING_TEMPLATE": "heading"
-  }
-}
+const { Command } = require('commander');
 
 const FALLBACK_PATTERNS = [
   '**/*.outline.yaml',
@@ -22,27 +12,66 @@ const FALLBACK_PATTERNS = [
   '__outlines__/**/*.yml'
 ]
 
-const {version, name, description} = require('./package.json');
+const SKELO_CONFIG_FILE = './skelo.config.json';
+
+const DEFAULT_TEMPLATE_NAMES = {
+  templateNames: {
+    SIDEBARS_TEMPLATE: "sidebars",
+    TOPIC_TEMPLATE: "topic",
+    HEADING_TEMPLATE: "heading"
+  }
+};
+
+const DEFAULT_OPTIONS = {
+  verbose: false,
+  docs: 'docs',
+  sidebarsFilename: 'sidebars.js',
+  fallbackPatterns: FALLBACK_PATTERNS,
+  templates: 'templates',
+  templateExtension: '.hbs',
+  schemaFilename: 'schemas/outline/v1/outline.schema.json',
+  config: SKELO_CONFIG_FILE, // Default config file path
+};
+
+const { version, name, description } = require('./package.json');
 
 /**
  * Reads a configuration file and returns a merged configuration
- * of defaultTemplateNames and the JSON content of the file.
- * If the file does not exist or there is an error reading/parsing
- * the content, it returns the defaultTemplateNames.
+ * object containing default options, template names, and options
+ * loaded from the configuration file. Options specified in the
+ * configuration file override the default options.
+ *
  * @param {string} configFile - The path to the configuration file.
  * @returns {Object} Merged configuration object.
  */
 function getConfiguration(configFile) {
+  const config = { ...DEFAULT_OPTIONS, ...DEFAULT_TEMPLATE_NAMES };  // Start with defaults
+
   try {
-    if (fs.existsSync(configFile)) {
-      const configContent = fs.readFileSync(configFile, 'utf8');
-      return {...DEFAULT_TEMPLATE_NAMES, ...JSON.parse(configContent)};
+    const resolvedConfigPath = path.resolve(configFile); // Resolve path
+
+    if (fs.existsSync(resolvedConfigPath)) {
+      const configContent = fs.readFileSync(resolvedConfigPath, 'utf8');
+      const loadedConfig = JSON.parse(configContent);
+
+      // Merge loaded config, overriding defaults and template names
+      Object.assign(config, loadedConfig, loadedConfig.templateNames ? { templateNames: loadedConfig.templateNames } : {});
+
+      // Resolve relative paths in config file relative to the config file's directory.
+      for (const option of ['docs', 'sidebarsFilename', 'templates', 'schemaFilename']) {
+        if (typeof config[option] === 'string') {
+          config[option] = path.resolve(path.dirname(resolvedConfigPath), config[option]);
+        }
+      }
+    } else {
+      console.warn(`Config file not found at ${resolvedConfigPath}. Using default options.`);
     }
   } catch (err) {
-      console.error("Error reading or parsing config file:", err);
-      return DEFAULT_TEMPLATE_NAMES;
-    }
+    console.error("Error reading or parsing config file:", err);
   }
+
+  return config;
+}
 
 let program = new Command();
 
@@ -58,7 +87,7 @@ program
   })
 
 program
-  .command('build', {isDefault: true})
+  .command('build', { isDefault: true })
   .alias('b')
   .description('Build Docusaurus documentation')
 
