@@ -506,4 +506,4 @@ This configuration file mechanism makes it easy to manage settings for your Docu
 
 ## License
 
-This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the ISC License - see the [LICENSE](LICENSE.md) file for details.
