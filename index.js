@@ -15,7 +15,7 @@ const DEFAULT_TEMPLATE_NAMES = {
   }
 }
 
-const fallbackPatterns = [
+const FALLBACK_PATTERNS = [
   '**/*.outline.yaml',
   '**/*.outline.yml',
   '__outlines__/**/*.yaml',
@@ -67,7 +67,7 @@ program
   .option('-v, --verbose', 'Verbose output')
   .option('-d, --docs <path>', 'Docusaurus documentation directory', 'docs')
   .option('-s, --sidebarsFilename <filePath>', 'Sidebars file name', 'sidebars.js')
-  .option('--fallback-patterns <patterns...>', 'Fallback glob patterns for outline files', fallbackPatterns)
+  .option('--fallback-patterns <patterns...>', 'Fallback glob patterns for outline files', FALLBACK_PATTERNS)
   .option('--templates <path>', 'Templates directory', 'templates')
   .option('--templateExtension <ext>', 'Template file extension', '.hbs')
   .option('--schemaFilename <path>', 'Schema file', 'schemas/outline/v1/outline.schema.json')
@@ -92,7 +92,7 @@ program
   .description('Validate outline files')
   .argument('[patterns...]', 'Glob patterns for outline files')
   .option('-v, --verbose', 'Verbose output')
-  .option('--fallback-patterns <patterns...>', 'Fallback glob patterns for outline files', fallbackPatterns)
+  .option('--fallback-patterns <patterns...>', 'Fallback glob patterns for outline files', FALLBACK_PATTERNS)
   .option('--schemaFilename <path>', 'Schema file', 'schemas/outline/v1/outline.schema.json')
   .action((patterns, options) => {
     const configFile = path.resolve(SKELO_CONFIG_FILE);
