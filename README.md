@@ -85,7 +85,7 @@ This  command  will  search  for  all  files  ending  in  `.outline.yaml` in the
 You  can  customize  the  behavior  of  skelo  build  with  various  options:
 
 ```bash
-skelo build **/*.outline.yaml --docs 'website/docs --sidebarsFilename sidebars.js --templates ./custom-templates --templateExtension .hbs
+skelo build **/*.outline.yaml --docs website/docs --sidebarsFilename sidebars.js --templates ./custom-templates --templateExtension .hbs
 ```
 
 This command uses the following options:
