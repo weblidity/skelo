@@ -137,4 +137,46 @@ program
     width: 100
   })
 
+  program
+  .command('init')
+  .alias('i')
+  .argument('[configFile]', 'Path to the configuration file', SKELO_CONFIG_FILE)
+  .description('Create a default configuration file')
+  .configureHelp({
+    sortSubcommands: true,
+    sortOptions: true,
+    width: 100
+  })
+  .action((configFile) => {
+    const configFilePath = path.resolve(configFile || SKELO_CONFIG_FILE);
+    const defaultConfig = { ...DEFAULT_OPTIONS, ...DEFAULT_TEMPLATE_NAMES };
+
+    const sortedConfig = Object.keys(defaultConfig).sort().reduce((obj, key) => {
+        let value = defaultConfig[key];
+
+        // Sort array values if the value is an array
+        if (Array.isArray(value)) {
+          value = value.sort();
+        }
+
+        // Sort object values recursively by key names if the value is an object
+        else if (typeof value === 'object' && value !== null) {
+            value = Object.keys(value).sort().reduce((sortedObj, innerKey) => {
+                sortedObj[innerKey] = value[innerKey];
+                return sortedObj;
+            }, {});
+        }
+
+        obj[key] = value;
+        return obj;
+    }, {});
+
+    try {
+      fs.writeFileSync(configFilePath, JSON.stringify(sortedConfig, null, 2), 'utf8');
+      console.log(`Configuration file created at ${configFilePath}`);
+    } catch (err) {
+      console.error(`Error creating configuration file: ${err.message}`);
+    }
+  });
+
 program.parse();
