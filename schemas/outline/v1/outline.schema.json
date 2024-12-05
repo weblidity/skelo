@@ -181,7 +181,7 @@
             "description": "A URI reference path for the item.",
             "type": "string",
             "format": "uri-reference",
-            "pattern": "^\\s*/([^/ ]*)*\\s*$",
+            "pattern": "^(\\s*/*)([^/ ]*)*\\s*$",
             "minLength": 1,
             "maxLength": 255
         },
