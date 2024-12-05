@@ -75,9 +75,7 @@ This will download and execute the latest version of `skelo-cli` without requiri
 The simplest way to use `skelo build` is to provide a glob pattern matching your outline files:
 
 ```bash
-
 skelo  build  **/*.outline.yaml
-
 ````
 
 This  command  will  search  for  all  files  ending  in  `.outline.yaml` in the current directory and its subdirectories, and generate the corresponding markdown files in the docs directory (by  default). The sidebars file (`sidebars.js`  by  default) will also be generated to reflect the structure defined in the outlines.
@@ -92,12 +90,11 @@ skelo build **/*.outline.yaml --docs 'website/docs --sidebarsFilename sidebars.j
 
 This command uses the following options:
 
-- '--docs 'website/docs'`: Specifies that the generated documentation files should be placed in the`website/docs`  directory.
-- `--sidebarsFilename 'sidebars.js'`: Specifies that the generated sidebars file should be named  `sidebars.js`.
-- `--templates './custom-templates'`: Specifies a custom directory containing templates.
-- `--templateExtension '.hbs'`: Specifies using  `.hbs`  as the template file extension.
+- `--docs 'website/docs`: Specifies that the generated documentation files should be placed in the `website/docs`  directory.
+- `--sidebarsFilename sidebars.js`: The generated sidebars file should be named  `sidebars.js`.
+- `--templates ./custom-templates`: Specifies a custom directory containing templates.
+- `--templateExtension .hbs`: Specifies using  `.hbs`  as the template file extension.
 
-```
 ####  Using Fallback Patterns
 
 If some of your documentation doesn't follow the outline file structure, you can use fallback patterns:
@@ -106,7 +103,7 @@ If some of your documentation doesn't follow the outline file structure, you can
  skelo build '**/*.outline.yaml' --fallback-patterns 'existing-docs/**/*.yaml'
  ```
 
-This will include any markdown files matching `existing-docs/**/*.yaml` in the generated documentation, even if they don't have corresponding outline files. These files will be placed in the appropriate location based on their relative path.
+This will include any markdown files matching `existing-docs/**/*.yaml` in the generated documentation, even if they don't have corresponding outline files. Based on their relative path, these files will be placed in the appropriate location.
 
 #### Example Outline File and Generated Output
 
@@ -151,7 +148,7 @@ module.exports = {
 The `skelo validate` command checks the validity of your outline files against a schema:
 
 ```bash
-skelo validate '**/*.outline.yaml' --schemaFilename './schemas/custom-outline.schema.json'
+skelo validate **/*.outline.yaml --schemaFilename ./schemas/custom-outline.schema.json
 ```
 
 This validates all outline files against the specified schema file, ensuring data integrity and consistency. Any validation errors will be reported to the console.
@@ -350,7 +347,7 @@ Robust error handling is crucial for any command-line tool. Here's how skelo-cli
   * Describe the specific schema violation. For example, "Missing required property 'id'" or "Invalid type for property 'label', expected string, got number".
   * Halt execution. Don't proceed with generating files if the outline is invalid. This prevents the creation of incorrect documentation.
 * Parsing Errors: If there's a problem parsing the YAML in an outline file (e.g., invalid syntax), skelo-cli should:
-  * Report the filename and line number (or character position) of the parsing error.
+  * Report the parsing error's filename and line number (or character position).
   * Provide a clear error message explaining the syntax issue. For example, "Unexpected token '}'".
   * Halt execution. Similar to schema validation errors, parsing errors should stop the generation process.
 * File System Errors: If skelo-cli can't access an outline file (e.g., the file doesn't exist or there are permissions issues), it should:
