@@ -10,7 +10,6 @@ Scaffold Docusaurus documentation project using outline files.
 [![njsscan sarif](https://github.com/weblidity/skelo-cli/actions/workflows/njsscan.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/njsscan.yml)
 [![CodeQL Advanced](https://github.com/weblidity/skelo-cli/actions/workflows/codeql.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/codeql.yml)
 
-
 ## Description
 
 `skelo-cli` is a command-line tool designed to scaffold Docusaurus documentation projects using outline files. It provides utilities to build and validate documentation structures efficiently.
@@ -23,6 +22,7 @@ Scaffold Docusaurus documentation project using outline files.
 - [Usage](#usage)
   - [Basic Usage - Building Documentation](#basic-usage---building-documentation)
     - [Specifying Options](#specifying-options)
+    - [Using Fallback Patterns](#using-fallback-patterns)
     - [Example Outline File and Generated Output](#example-outline-file-and-generated-output)
   - [Validation](#validation)
 - [Outline File Format](#outline-file-format)
@@ -33,19 +33,18 @@ Scaffold Docusaurus documentation project using outline files.
   - [Template Variables](#template-variables)
   - [Example Custom Template (topic.hbs)](#example-custom-template-topichbs)
 - [Schema Validation](#schema-validation)
-  - [The Schema File (schemas/outline/v1/outline.schema.json by default):](#the-schema-file-schemasoutlinev1outlineschemajson-by-default)
-    - [How Schema Validation Works:](#how-schema-validation-works)
-    - [Outline File Error Reporting:](#outline-file-error-reporting)
+  - [The Schema File (schemas/outline/v1/outline.schema.json by default)](#the-schema-file-schemasoutlinev1outlineschemajson-by-default)
+    - [How Schema Validation Works](#how-schema-validation-works)
+    - [Outline File Error Reporting](#outline-file-error-reporting)
 - [Error Handling](#error-handling)
-  - [Outline File Errors:](#outline-file-errors)
-  - [Templating Errors:](#templating-errors)
-  - [General Error Handling Best Practices:](#general-error-handling-best-practices)
+  - [Outline File Errors](#outline-file-errors)
+  - [Templating Errors](#templating-errors)
+  - [General Error Handling Best Practices](#general-error-handling-best-practices)
 - [Troubleshooting](#troubleshooting)
 - [Related Tools](#related-tools)
 - [Configuration File](#configuration-file)
 - [Author](#author)
 - [License](#license)
-
 
 ## Installation
 
@@ -79,7 +78,7 @@ skelo  build  **/*.outline.yaml
 ````
 
 This  command  will  search  for  all  files  ending  in  `.outline.yaml` in the current directory and its subdirectories, and generate the corresponding markdown files in the docs directory (by  default). The sidebars file (`sidebars.js`  by  default) will also be generated to reflect the structure defined in the outlines.
-  
+
 #### Specifying Options
 
 You  can  customize  the  behavior  of  skelo  build  with  various  options:
@@ -95,7 +94,7 @@ This command uses the following options:
 - `--templates ./custom-templates`: Specifies a custom directory containing templates.
 - `--templateExtension .hbs`: Specifies using  `.hbs`  as the template file extension.
 
-####  Using Fallback Patterns
+#### Using Fallback Patterns
 
 If some of your documentation doesn't follow the outline file structure, you can use fallback patterns:
 
@@ -269,7 +268,7 @@ By customizing templates, you can precisely control the format and content of yo
 
 The schema validation process ensures that your outline files adhere to the expected structure, preventing errors during the generation of your Docusaurus documentation. skelo-cli uses a JSON schema file to define the valid structure for outline files.
 
-### The Schema File (schemas/outline/v1/outline.schema.json by default):
+### The Schema File (schemas/outline/v1/outline.schema.json by default)
 
 The schema file describes the allowed properties, their types, and any required fields. It acts as a blueprint for valid outline files. While I don't have access to the specific contents of your schemas/outline/v1/outline.schema.json file, a typical schema for outline files might look something like this (simplified example):
 
@@ -314,25 +313,25 @@ The schema file describes the allowed properties, their types, and any required 
 
 This schema defines that:
 
-* The root must be an object with a required "sidebars" property.
-* "sidebars" must be an array.
-* Each item in "sidebars" must be an object with "label" and "items" properties.
-* "items" must be an array where each item has a required "id" property and optional "label," "headings," and "items" properties to handle nesting.
+- The root must be an object with a required "sidebars" property.
+- "sidebars" must be an array.
+- Each item in "sidebars" must be an object with "label" and "items" properties.
+- "items" must be an array where each item has a required "id" property and optional "label," "headings," and "items" properties to handle nesting.
 
 This ensures a consistent and predictable structure for the outline files.
 
-#### How Schema Validation Works:
+#### How Schema Validation Works
 
 When you run skelo validate, the tool parses your outline files and checks them against the schema. It verifies that all required properties are present, data types are correct, and no invalid properties exist.
 
-#### Outline File Error Reporting:
+#### Outline File Error Reporting
 
 If an outline file doesn't conform to the schema, skelo-cli will report detailed error messages indicating the specific violations. These errors typically include:
 
-* The location of the error (file and line number).
-* The property that caused the error.
-* The expected type or value.
-* The actual value found.
+- The location of the error (file and line number).
+- The property that caused the error.
+- The expected type or value.
+- The actual value found.
 
 These error messages help you pinpoint and fix issues in your outline files quickly. Clear error reporting is essential for a smooth development experience. By enforcing the schema, skelo-cli helps maintain the integrity and consistency of your Docusaurus documentation structure.
 
@@ -340,39 +339,39 @@ These error messages help you pinpoint and fix issues in your outline files quic
 
 Robust error handling is crucial for any command-line tool. Here's how skelo-cli should handle errors to provide a good user experience:
 
-### Outline File Errors:
+### Outline File Errors
 
-* Schema Validation Errors: If an outline file fails schema validation, skelo-cli should:
-  * Report the filename and line number of the error. This pinpoints the exact location of the problem.
-  * Describe the specific schema violation. For example, "Missing required property 'id'" or "Invalid type for property 'label', expected string, got number".
-  * Halt execution. Don't proceed with generating files if the outline is invalid. This prevents the creation of incorrect documentation.
-* Parsing Errors: If there's a problem parsing the YAML in an outline file (e.g., invalid syntax), skelo-cli should:
-  * Report the parsing error's filename and line number (or character position).
-  * Provide a clear error message explaining the syntax issue. For example, "Unexpected token '}'".
-  * Halt execution. Similar to schema validation errors, parsing errors should stop the generation process.
-* File System Errors: If skelo-cli can't access an outline file (e.g., the file doesn't exist or there are permissions issues), it should:
-  * Report the filename and the specific error encountered. For example, "File not found" or "Permission denied".
-  * Halt execution. Don't attempt to continue if essential files are inaccessible.
+- Schema Validation Errors: If an outline file fails schema validation, skelo-cli should:
+  - Report the filename and line number of the error. This pinpoints the exact location of the problem.
+  - Describe the specific schema violation. For example, "Missing required property 'id'" or "Invalid type for property 'label', expected string, got number".
+  - Halt execution. Don't proceed with generating files if the outline is invalid. This prevents the creation of incorrect documentation.
+- Parsing Errors: If there's a problem parsing the YAML in an outline file (e.g., invalid syntax), skelo-cli should:
+  - Report the parsing error's filename and line number (or character position).
+  - Provide a clear error message explaining the syntax issue. For example, "Unexpected token '}'".
+  - Halt execution. Similar to schema validation errors, parsing errors should stop the generation process.
+- File System Errors: If skelo-cli can't access an outline file (e.g., the file doesn't exist or there are permissions issues), it should:
+  - Report the filename and the specific error encountered. For example, "File not found" or "Permission denied".
+  - Halt execution. Don't attempt to continue if essential files are inaccessible.
 
-### Templating Errors:
+### Templating Errors
 
-* **Missing Templates:** If a specified template file is not found, skelo-cli should:
-  * **Report the name of the missing template file.** Clearly indicate which template is causing the issue.
-  * **Halt execution.** Don't attempt to generate files without a valid template.
-* **Template Compilation Errors:** If there's an error compiling a Handlebars template (e.g., invalid syntax in the template), skelo-cli should:
-  * **Report the filename and line number of the error within the template file.** Help users debug their custom templates.
-  * **Provide a descriptive error message explaining the compilation problem.**
-  * **Halt execution.** Prevent the generation of potentially malformed files.
-* **Runtime Errors:** If an error occurs during template rendering (e.g., trying to access a non-existent variable), skelo-cli should:
-  * **Report the filename of the template and the specific error that occurred.** This might include the line number in the template where the error originated.
+- **Missing Templates:** If a specified template file is not found, skelo-cli should:
+  - **Report the name of the missing template file.** Clearly indicate which template is causing the issue.
+  - **Halt execution.** Don't attempt to generate files without a valid template.
+- **Template Compilation Errors:** If there's an error compiling a Handlebars template (e.g., invalid syntax in the template), skelo-cli should:
+  - **Report the filename and line number of the error within the template file.** Help users debug their custom templates.
+  - **Provide a descriptive error message explaining the compilation problem.**
+  - **Halt execution.** Prevent the generation of potentially malformed files.
+- **Runtime Errors:** If an error occurs during template rendering (e.g., trying to access a non-existent variable), skelo-cli should:
+  - **Report the filename of the template and the specific error that occurred.** This might include the line number in the template where the error originated.
   *** Provide a clear error message explaining the runtime issue.**
-  * **Halt execution.** Stop the generation process to avoid incomplete or incorrect files.
+  - **Halt execution.** Stop the generation process to avoid incomplete or incorrect files.
 
-### General Error Handling Best Practices:
+### General Error Handling Best Practices
 
-* **Exit Codes:** Use appropriate exit codes to signal success or failure. A non-zero exit code indicates an error, allowing scripts and other tools to detect problems.
-* **Consistent Formatting:** Maintain consistent formatting for error messages. This makes them easier to parse and understand. Consider using a standard format like: [ERROR] <filename>:<line number>: <error message>.
-* **User-Friendly Language:** Write clear and concise error messages that explain the issue in a way that's easy for users to understand, even if they are not familiar with the technical details. Avoid jargon and overly technical language.
+- **Exit Codes:** Use appropriate exit codes to signal success or failure. A non-zero exit code indicates an error, allowing scripts and other tools to detect problems.
+- **Consistent Formatting:** Maintain consistent formatting for error messages. This makes them easier to parse and understand. Consider using a standard format like: [ERROR] <filename>:<line number>: <error message>.
+- **User-Friendly Language:** Write clear and concise error messages that explain the issue in a way that's easy for users to understand, even if they are not familiar with the technical details. Avoid jargon and overly technical language.
 
 By following these error handling guidelines, skelo-cli can provide a robust and user-friendly experience, making it easier for developers to create and maintain their Docusaurus documentation.
 
@@ -382,48 +381,44 @@ This section outlines some common issues you might encounter while using `skelo-
 
 **1. "Error: Cannot find module 'skelo-cli'"**
 
-* **Cause:** This error usually means that `skelo-cli` is not installed globally or locally in your project.
-* **Solution:**
-    * **Global Installation:** Install `skelo-cli` globally using: `npm install -g skelo-cli`
-    * **Local Installation:**  If you prefer a local installation (recommended), install it as a dev dependency: `npm install --save-dev skelo-cli`  Then, use `npx skelo <command>` to run the tool.
+- **Cause:** This error usually means that `skelo-cli` is not installed globally or locally in your project.
+- **Solution:**
+  - **Global Installation:** Install `skelo-cli` globally using: `npm install -g skelo-cli`
+  - **Local Installation:**  If you prefer a local installation (recommended), install it as a dev dependency: `npm install --save-dev skelo-cli`  Then, use `npx skelo <command>` to run the tool.
 
 **2.  "Error: ENOENT: no such file or directory, open '<path/to/outline.yaml>' "**
 
-* **Cause:** `skelo-cli` cannot find the specified outline file.
-* **Solution:**
-    * **Verify Path:** Double-check the path you provided to the `skelo build` command. Ensure the outline file exists at that location.  Use relative paths from the current directory or absolute paths.
-    * **Glob Patterns:**  If you're using glob patterns (e.g., `**/*.outline.yaml`), make sure the pattern correctly matches the outline files.
-
+- **Cause:** `skelo-cli` cannot find the specified outline file.
+- **Solution:**
+  - **Verify Path:** Double-check the path you provided to the `skelo build` command. Ensure the outline file exists at that location.  Use relative paths from the current directory or absolute paths.
+  - **Glob Patterns:**  If you're using glob patterns (e.g., `**/*.outline.yaml`), make sure the pattern correctly matches the outline files.
 
 **3. "Error: Invalid outline file. Missing required property 'id'" (or similar schema validation errors)**
 
-* **Cause:** The outline file does not conform to the schema defined in `schemas/outline/v1/outline.schema.json`.
-* **Solution:**
-    * **Review the schema:** Carefully examine the schema file to understand the required properties and their formats.
-    * **Correct the outline file:**  Fix the errors in the outline file according to the schema. The error message will usually indicate the location of the problem in the file.
-* **Use a custom schema:** If you have modified the schema, ensure you're using the `--schemaFilename` option to point to your custom schema file.
-
+- **Cause:** The outline file does not conform to the schema defined in `schemas/outline/v1/outline.schema.json`.
+- **Solution:**
+  - **Review the schema:** Carefully examine the schema file to understand the required properties and their formats.
+  - **Correct the outline file:**  Fix the errors in the outline file according to the schema. The error message will usually indicate the location of the problem in the file.
+- **Use a custom schema:** If you have modified the schema, ensure you're using the `--schemaFilename` option to point to your custom schema file.
 
 **4. "Error: Missing template 'page.hbs'"**
 
-* **Cause:** The specified Handlebars template file cannot be found.
-* **Solution:**
-    * **Check the `--templates` path:** Ensure that the directory provided to the `--templates` option contains the required template file.
-    * **Verify the template filename:** Double-check that the template filename is correct (including the extension).
-
-
+- **Cause:** The specified Handlebars template file cannot be found.
+- **Solution:**
+  - **Check the `--templates` path:** Ensure that the directory provided to the `--templates` option contains the required template file.
+  - **Verify the template filename:** Double-check that the template filename is correct (including the extension).
 
 **5.  Unexpected output or errors during template rendering**
 
-* **Cause:** Problems with your custom Handlebars template (e.g., invalid syntax, incorrect variable names).
-* **Solution:**
-    * **Debug the template:** Carefully review your Handlebars template for syntax errors or incorrect variable usage. Use console logging or a debugger to inspect the template variables.
-    * **Consult Handlebars documentation:** Refer to the Handlebars documentation for details on template syntax and usage.
+- **Cause:** Problems with your custom Handlebars template (e.g., invalid syntax, incorrect variable names).
+- **Solution:**
+  - **Debug the template:** Carefully review your Handlebars template for syntax errors or incorrect variable usage. Use console logging or a debugger to inspect the template variables.
+  - **Consult Handlebars documentation:** Refer to the Handlebars documentation for details on template syntax and usage.
 
 **6.  Sidebars not updating correctly**
 
-* **Cause:** Potential conflicts with existing sidebar configuration in your Docusaurus project.
-* **Solution:** Ensure that the sidebar key in your outline files matches the one exported from your sidebars.js (or sidebars.ts) file. Consider backing up your sidebars file before running `skelo build` to avoid data loss.
+- **Cause:** Potential conflicts with existing sidebar configuration in your Docusaurus project.
+- **Solution:** Ensure that the sidebar key in your outline files matches the one exported from your sidebars.js (or sidebars.ts) file. Consider backing up your sidebars file before running `skelo build` to avoid data loss.
 
 If you encounter any other issues, please consult the project's documentation or submit an issue on the project's GitHub repository.
 
@@ -431,14 +426,13 @@ If you encounter any other issues, please consult the project's documentation or
 
 While `skelo-cli` offers a streamlined approach to scaffolding Docusaurus documentation using outline files, several other tools and methods can achieve similar results.  Understanding these alternatives can help you choose the best approach for your specific needs.
 
-* **Manual Docusaurus Sidebar Configuration:** Docusaurus allows for manual sidebar configuration within the `sidebars.js` file.  This offers maximum flexibility but can become tedious and error-prone for large documentation sites. `skelo-cli` aims to automate this process and provide a more manageable way to define the documentation structure.
+- **Manual Docusaurus Sidebar Configuration:** Docusaurus allows for manual sidebar configuration within the `sidebars.js` file.  This offers maximum flexibility but can become tedious and error-prone for large documentation sites. `skelo-cli` aims to automate this process and provide a more manageable way to define the documentation structure.
 
-* **Docusaurus Plugins:** Several community-maintained Docusaurus plugins may offer similar functionality or integrations with different data sources for generating documentation. Exploring these plugins might reveal alternative solutions that better suit your workflow.
+- **Docusaurus Plugins:** Several community-maintained Docusaurus plugins may offer similar functionality or integrations with different data sources for generating documentation. Exploring these plugins might reveal alternative solutions that better suit your workflow.
 
-* **Static Site Generators (SSGs) with YAML Configuration:** Other SSGs, such as Gatsby and Jekyll, often support defining site structure through YAML configuration.  If you're not using Docusaurus, these alternatives might be more suitable.
+- **Static Site Generators (SSGs) with YAML Configuration:** Other SSGs, such as Gatsby and Jekyll, often support defining site structure through YAML configuration.  If you're not using Docusaurus, these alternatives might be more suitable.
 
-* **Custom Scripting:** You can write custom scripts using languages like Node.js or Python to parse YAML files and generate Markdown files.  This gives you the greatest control but requires more development effort. `skelo-cli` simplifies this by providing a dedicated tool for the task.
-
+- **Custom Scripting:** You can write custom scripts using languages like Node.js or Python to parse YAML files and generate Markdown files.  This gives you the greatest control but requires more development effort. `skelo-cli` simplifies this by providing a dedicated tool for the task.
 
 This list is not exhaustive, but it provides a starting point for exploring the landscape of tools available for generating documentation from structured data.  `skelo-cli` differentiates itself by focusing specifically on Docusaurus, providing an easy-to-use CLI, schema validation, and templating capabilities for greater control over the generated output.
 
@@ -478,10 +472,10 @@ The configuration file can contain any of the options available via command-line
 
 **How Settings Work:**
 
-* **Precedence:** When a configuration file is specified using --config, the settings defined in the file override any default values and any options provided directly on the command line. This allows you to define common settings in the file and selectively override them on the command line when needed.
-* **Missing File:** If the specified configuration file does not exist, skelo-cli will log a warning and fall back to the default options. This ensures a smooth experience even if the configuration file is accidentally deleted or misplaced. If no configuration is provided by using the -c or --config option, then skelo-cli will search for a skelo.config.json in the current folder. If this file is missing, then default values will be used.
-* **Default Values:** If neither a configuration file is specified nor found, skelo-cli uses a set of built-in default values. These defaults are designed to work in most common scenarios.
-* **Partial Configuration:** You don't need to specify all options in the configuration file. Any omitted options will use their default values or values specified on the command line.
+- **Precedence:** When a configuration file is specified using --config, the settings defined in the file override any default values and any options provided directly on the command line. This allows you to define common settings in the file and selectively override them on the command line when needed.
+- **Missing File:** If the specified configuration file does not exist, skelo-cli will log a warning and fall back to the default options. This ensures a smooth experience even if the configuration file is accidentally deleted or misplaced. If no configuration is provided by using the -c or --config option, then skelo-cli will search for a skelo.config.json in the current folder. If this file is missing, then default values will be used.
+- **Default Values:** If neither a configuration file is specified nor found, skelo-cli uses a set of built-in default values. These defaults are designed to work in most common scenarios.
+- **Partial Configuration:** You don't need to specify all options in the configuration file. Any omitted options will use their default values or values specified on the command line.
 
 Example:
 
@@ -498,8 +492,6 @@ This configuration file mechanism makes it easy to manage settings for your Docu
 ## Author
 
 [Ion Gireada at Weblidity](https://github.com/weblidity) - ion.gireada[at]weblidity.com
-
-
 
 ## License
 
