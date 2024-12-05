@@ -138,8 +138,15 @@ program
   })
 
   program
-  .command('init [configFile]')
+  .command('init')
+  .alias('i')
+  .argument('[configFile]', 'Path to the configuration file', SKELO_CONFIG_FILE)
   .description('Create a default configuration file')
+  .configureHelp({
+    sortSubcommands: true,
+    sortOptions: true,
+    width: 100
+  })
   .action((configFile) => {
     const configFilePath = path.resolve(configFile || SKELO_CONFIG_FILE);
     const defaultConfig = { ...DEFAULT_OPTIONS, ...DEFAULT_TEMPLATE_NAMES };

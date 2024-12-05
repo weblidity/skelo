@@ -20,6 +20,8 @@ Scaffold Docusaurus documentation project using outline files.
 - [Table of Contents](#table-of-contents)
 - [Installation](#installation)
 - [Usage](#usage)
+  - [Basic Help and Version](#basic-help-and-version)
+  - [Help Command Output](#help-command-output)
   - [Basic Usage - Building Documentation](#basic-usage---building-documentation)
     - [Specifying Options](#specifying-options)
     - [Using Fallback Patterns](#using-fallback-patterns)
@@ -68,6 +70,89 @@ npx skelo validate **/*.outline.md
 ```
 
 This will download and execute the latest version of `skelo-cli` without requiring a global installation. This is particularly useful for trying out the tool or for CI/CD pipelines where you want to ensure you're using a specific version.
+
+### Basic Help and Version
+
+To view the available commands and options, use the following flags:
+
+-h or --help: Display help for the command.
+-V or --version: Display the version of skelo-cli.
+
+```bash
+$ skelo -h
+$ skelo -V
+```
+>
+> **Note:** You can also use `skelo --help` or `skelo --version` to get the same information.
+
+```bash
+$ skelo -h
+Usage: skelo [options] [command]
+
+Options:
+  -V, --version     output the version number
+  -h, --help        display help for skelo
+
+Commands:
+  build [options]   Build Docusaurus documentation from outline files.
+  init [options]    Create a default configuration file.
+  validate [options] Validate outline files.
+
+Options can be specified via options or config file.
+See skelo <command> --help for more info on a command.
+```
+
+### Help Command Output
+
+Below is the output of the help command for each available command:
+
+Build Command
+
+```bash
+$ skelo build -h # or help build
+
+Usage: skelo build [options] [patterns...]
+
+Build Docusaurus documentation from outline files.
+
+Options:
+  -v, --verbose         Verbose output
+  --fallback-patterns <patterns...>  Fallback glob patterns for outline files
+  --schemaFilename <path>            Schema file (default: "schemas/outline/v1/outline.schema.json")
+  -c, --config <path>                Path to the configuration file (default: "./skelo.config.json")
+  --templates <directory>            Directory containing custom templates
+  --templateExtension <extension>    File extension to use when looking up templates (default: ".hbs")
+  -h, --help                         Display help for command
+```
+Init Command
+
+```bash
+$ skelo init -h # or help init
+
+Usage: skelo init [options] [configFile]
+
+Create a default configuration file.
+
+Options:
+  -h, --help  Display help for command
+```
+
+Validate Command
+
+```bash
+$ skelo validate -h # or help validate
+
+Usage: skelo validate [options] [patterns...]
+
+Validate outline files.
+
+Options:
+  -v, --verbose         Verbose output
+  --fallback-patterns <patterns...>  Fallback glob patterns for outline files
+  --schemaFilename <path>            Schema file (default: "schemas/outline/v1/outline.schema.json")
+  -c, --config <path>                Path to the configuration file (default: "./skelo.config.json")
+  -h, --help                         Display help for command
+```
 
 ### Basic Usage - Building Documentation
 
@@ -309,6 +394,7 @@ The schema file describes the allowed properties, their types, and any required 
   "required": ["sidebars"],
   "additionalProperties": false // Prevents any extra properties not defined in the schema
 }
+
 ```
 
 This schema defines that:
@@ -468,6 +554,7 @@ The configuration file can contain any of the options available via command-line
     "HEADING_TEMPLATE": "custom-heading"
   }
 }
+
 ```
 
 **How Settings Work:**
