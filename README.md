@@ -10,13 +10,10 @@ Scaffold Docusaurus documentation project using outline files.
 [![njsscan sarif](https://github.com/weblidity/skelo-cli/actions/workflows/njsscan.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/njsscan.yml)
 [![CodeQL Advanced](https://github.com/weblidity/skelo-cli/actions/workflows/codeql.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/codeql.yml)
 
-<!-- [![npm](https://img.shields.io/npm/l/skelo-cli.svg)](https://www.npmjs.com/package/skelo-cli) -->
-
-<!-- [![Coverage Status](https://coveralls.io/repos/github/weblidity/skelo-cli/badge.svg?branch=main)](https://coveralls.io/github/weblidity/skelo-cli?branch=main) --><!-- Example, adapt if using Coveralls -->
 
 ## Description
 
-`skelo CLI` is a command-line tool designed to scaffold Docusaurus documentation projects using outline files. It provides utilities to build and validate documentation structures efficiently.
+`skelo-cli` is a command-line tool designed to scaffold Docusaurus documentation projects using outline files. It provides utilities to build and validate documentation structures efficiently.
 
 ## Table of Contents
 
@@ -48,9 +45,10 @@ Scaffold Docusaurus documentation project using outline files.
 - [Configuration File](#configuration-file)
 - [License](#license)
 
+
 ## Installation
 
-To install `Skelo CLI`, ensure you have Node.js and npm installed, then run:
+To install `skelo-cli`, ensure you have Node.js and npm installed, then run:
 
 ```bash
 npm  install -g skelo-cli
@@ -59,6 +57,17 @@ npm  install -g skelo-cli
 ## Usage
 
 After installation, you can use the `skelo` command to build or validate your Docusaurus documentation. The core functionality revolves around processing outline files to generate the appropriate file structure and sidebars.
+
+Running with npx (without global installation):
+
+If you don't want to install skelo-cli globally, you can use npx to run it directly:
+
+```bash
+npx skelo build **/*.outline.md
+npx skelo validate **/*.outline.md
+```
+
+This will download and execute the latest version of `skelo-cli` without requiring a global installation. This is particularly useful for trying out the tool or for CI/CD pipelines where you want to ensure you're using a specific version.
 
 ### Basic Usage - Building Documentation
 
