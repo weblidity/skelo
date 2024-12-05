@@ -43,6 +43,7 @@ Scaffold Docusaurus documentation project using outline files.
 - [Troubleshooting](#troubleshooting)
 - [Related Tools](#related-tools)
 - [Configuration File](#configuration-file)
+- [Author](#author)
 - [License](#license)
 
 
@@ -496,6 +497,11 @@ skelo build **/*.outline.yaml -c my-config.json --docs project-docs
 The `docs` directory used will be `website/docs` (from the config file) because the configuration file overrides command-line options.
 
 This configuration file mechanism makes it easy to manage settings for your Docusaurus documentation builds, particularly for complex projects with many options.
+
+## Author
+
+[Ion Gireada at Weblidity](https://github.com/weblidity) - ion.gireada[at]weblidity.com
+
 
 
 ## License
