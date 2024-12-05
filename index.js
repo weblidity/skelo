@@ -11,9 +11,9 @@ const fallbackPatterns = [
   '__outlines__/**/*.yml'
 ]
 
-let program = new Command();
-
 const {version, name, description} = require('./package.json');
+
+let program = new Command();
 
 program
   .name(name)
@@ -64,13 +64,12 @@ program
     validateFilesAndShowDuplicatedLabels(patterns, options);
   })
 
-
   .configureHelp({
     sortSubcommands: true,
     sortOptions: true,
     width: 100
   })
 
-  // program.parse("node index.js validate  --verbose".split(" "))
-  program.parse("node index.js -d test/website/docs -s test/website/sidebars.js --verbose".split(" "))
-// program.parse();
+// program.parse("node index.js validate  --verbose".split(" "))
+// program.parse("node index.js -d test/website/docs -s test/website/sidebars.js --verbose".split(" "))
+program.parse();
