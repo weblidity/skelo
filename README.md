@@ -5,7 +5,8 @@ Scaffold Docusaurus documentation project using outline files.
 [![npm](https://img.shields.io/npm/v/skelo-cli.svg)](https://www.npmjs.com/package/skelo-cli)
 [![npm](https://img.shields.io/npm/dm/skelo-cli.svg)](https://www.npmjs.com/package/skelo-cli)
 [![Build Status](https://github.com/weblidity/skelo-cli/actions/workflows/node.js.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/node.js.yml)
-[![Known Vulnerabilities](https://snyk.io/test/github/weblidity/skelo-cli/badge.svg)](https://snyk.io/test/github/weblidity/skelo-cli) <!-- Example, adapt to your vulnerability scanner -->
+[![Known Vulnerabilities](https://snyk.io/test/github/weblidity/skelo-cli/badge.svg)](https://snyk.io/test/github/weblidity/skelo-cli) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fweblidity%2Fskelo-cli.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fweblidity%2Fskelo-cli?ref=badge_shield)
+<!-- Example, adapt to your vulnerability scanner -->
 ![License](https://img.shields.io/badge/license-ISC-green)
 [![njsscan sarif](https://github.com/weblidity/skelo-cli/actions/workflows/njsscan.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/njsscan.yml)
 [![CodeQL Advanced](https://github.com/weblidity/skelo-cli/actions/workflows/codeql.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/codeql.yml)
@@ -629,3 +630,6 @@ This configuration file mechanism makes it easy to manage settings for your Docu
 ## License
 
 This project is licensed under the ISC License - see the [LICENSE](LICENSE.md) file for details.
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fweblidity%2Fskelo-cli.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fweblidity%2Fskelo-cli?ref=badge_large)
