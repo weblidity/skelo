@@ -38,7 +38,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "ajv": "^8.17.1",
     "commander": "^12.1.0",
     "glob": "^11.0.0",
     "handlebars": "^4.7.8",
