@@ -6,7 +6,6 @@ Scaffold Docusaurus documentation project using outline files.
 [![npm](https://img.shields.io/npm/dm/skelo-cli.svg)](https://www.npmjs.com/package/skelo-cli)
 [![Build Status](https://github.com/weblidity/skelo-cli/actions/workflows/node.js.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/node.js.yml)
 [![Known Vulnerabilities](https://snyk.io/test/github/weblidity/skelo-cli/badge.svg)](https://snyk.io/test/github/weblidity/skelo-cli) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fweblidity%2Fskelo-cli.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fweblidity%2Fskelo-cli?ref=badge_shield)
-<!-- Example, adapt to your vulnerability scanner -->
 ![License](https://img.shields.io/badge/license-MIT-green)
 [![njsscan sarif](https://github.com/weblidity/skelo-cli/actions/workflows/njsscan.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/njsscan.yml)
 [![CodeQL Advanced](https://github.com/weblidity/skelo-cli/actions/workflows/codeql.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/codeql.yml)
