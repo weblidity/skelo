@@ -10,6 +10,8 @@ Scaffold Docusaurus documentation project using outline files.
 ![License](https://img.shields.io/badge/license-ISC-green)
 [![njsscan sarif](https://github.com/weblidity/skelo-cli/actions/workflows/njsscan.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/njsscan.yml)
 [![CodeQL Advanced](https://github.com/weblidity/skelo-cli/actions/workflows/codeql.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/codeql.yml)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fweblidity%2Fskelo-cli.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2Fweblidity%2Fskelo-cli?ref=badge_shield&issueType=security)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fweblidity%2Fskelo-cli.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Fweblidity%2Fskelo-cli?ref=badge_shield&issueType=license)
 
 ## Description
 
@@ -629,7 +631,5 @@ This configuration file mechanism makes it easy to manage settings for your Docu
 
 ## License
 
-This project is licensed under the ISC License - see the [LICENSE](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fweblidity%2Fskelo-cli.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fweblidity%2Fskelo-cli?ref=badge_large)
