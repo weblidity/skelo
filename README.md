@@ -11,6 +11,7 @@ Scaffold Docusaurus documentation project using outline files.
 [![CodeQL Advanced](https://github.com/weblidity/skelo-cli/actions/workflows/codeql.yml/badge.svg)](https://github.com/weblidity/skelo-cli/actions/workflows/codeql.yml)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fweblidity%2Fskelo-cli.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2Fweblidity%2Fskelo-cli?ref=badge_shield&issueType=security)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fweblidity%2Fskelo-cli.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Fweblidity%2Fskelo-cli?ref=badge_shield&issueType=license)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d92abd58b192b90e0f31/maintainability)](https://codeclimate.com/github/weblidity/skelo-cli/maintainability)
 
 ## Description
 
