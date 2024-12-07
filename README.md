@@ -14,7 +14,7 @@ Scaffold Docusaurus documentation project using outline files.
 
 ## Description
 
-`skelo-cli` is a command-line tool designed to scaffold Docusaurus documentation projects using outline files. It provides utilities to build and validate documentation structures efficiently. 
+`skelo-cli` is a command-line tool designed to scaffold Docusaurus documentation projects using outline files. It provides utilities to build and validate documentation structures efficiently.
 
 ## Table of Contents
 
