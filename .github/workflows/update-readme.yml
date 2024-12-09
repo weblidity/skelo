@@ -11,10 +11,6 @@ jobs:
     env:
       CLI_PATH: ./index.js
 
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x, 22.x]
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -22,7 +18,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 23.x
 
       - name: Install npm packages
         run: |
@@ -69,3 +65,17 @@ jobs:
             
             awk '/<!-- INSERT_START:USAGE.md -->/,/<!-- INSERT_END:USAGE.md -->/ {if (/<!-- INSERT_START:USAGE.md -->/) {print "<!-- INSERT_START:USAGE.md -->\n" content "\n<!-- INSERT_END:USAGE.md -->"; next} if (/<!-- INSERT_END:USAGE.md -->/) {next} next}1' content="$CONTENT" README.md > temp.md && mv temp.md README.md
 
+            echo "Content between block tags replaced with content of USAGE.md."
+          fi
+
+          echo "Latest value of CONTENT:"
+          echo "$CONTENT"
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md USAGE.md
+          git commit -m "Update README.md with content from USAGE.md" || echo "No changes to commit"
+          git pull --rebase
+          git push || echo "No changes to push"
