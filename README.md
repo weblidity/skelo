@@ -635,5 +635,4 @@ This configuration file mechanism makes it easy to manage settings for your Docu
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 <!-- INSERT_START:USAGE.md -->
-This is a mock USAGE.md file.
 <!-- INSERT_END:USAGE.md -->
