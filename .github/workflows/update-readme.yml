@@ -1,4 +1,4 @@
-name: Run Script
+name: Update CLI's README
 
 on:
   push:
@@ -36,6 +36,4 @@ jobs:
             awk '/<!-- INSERT_START:USAGE.md -->/,/<!-- INSERT_END:USAGE.md -->/ {if (/<!-- INSERT_END:USAGE.md -->/) {print "<!-- INSERT_START:USAGE.md -->"; system("cat USAGE.md"); print "<!-- INSERT_END:USAGE.md -->"; next} next} {print}' README.md > temp.md && mv temp.md README.md
             echo "Content between tags replaced with content of USAGE.md."
           else
-            echo "No relevant tags found in README.md. Skipping step."
-            exit 0
-          fi
+            echo
