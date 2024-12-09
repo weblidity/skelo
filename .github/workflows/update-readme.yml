@@ -2,7 +2,76 @@ name: Run Script
 
 on:
   push:
+    branches:name: Run Script
+
+on:
+  push:
     branches:
+      - main
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Create mock USAGE.md
+        run: |
+          echo "This is a mock USAGE.md file." > USAGE.md
+          echo "USAGE.md file created."
+          cat USAGE.md
+
+      - name: Update README.md
+        run: |
+          if [ ! -f README.md ]; then
+            echo "README.md not found. Skipping step."
+            exit 0
+          fi
+
+          if [ ! -f USAGE.md ]; then
+            echo "USAGE.md not found. Skipping step."
+            exit 0
+          fi
+
+          if grep -q '<!-- INSERT:USAGE.md -->' README.md; then
+            awk '/<!-- INSERT:USAGE.md -->/ {print "<!-- INSERT_START:USAGE.md -->"; system("cat USAGE.md"); print "<!-- INSERT_END:USAGE.md -->"; next} {print}' README.md > temp.md && mv temp.md README.md
+            echo "Short tag replaced with content of USAGE.md."
+          elif grep -q '<!-- INSERT_START:USAGE.md -->' README.md && grep -q '<!-- INSERT_END:USAGE.md -->'; then
+            awk '/<!-- INSERT_START:USAGE.md -->/,/<!-- INSERT_END:USAGE.md -->/ {if (/<!-- INSERT_END:USAGE.md -->/) {print "<!-- INSERT_START:USAGE.md -->"; system("cat USAGE.md"); print "<!-- INSERT_END:USAGE.md -->"; next} next} {print}' README.md > temp.md && mv temp.md README.md
+            echo "Content between tags replaced with content of USAGE.md."
+          else
+            echo "No relevant tags found in README.md. Skipping step."
+            exit 0
+          fi
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md USAGE.md
+          git commit -m "Update README.md with content from USAGE.md"
+          git log -1
+
+      - name: Pull latest changes
+        run: |
+          git pull origin master --rebase || git rebase --abort
+
+      - name: Resolve conflicts
+        run: |
+          if git status | grep -q 'CONFLICT'; then
+            git add .github/workflows/update-readme.yml README.md
+            git rebase --continue || git rebase --skip
+          else
+            echo "No conflicts to resolve."
+          fi
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
       - main
 
 jobs:
