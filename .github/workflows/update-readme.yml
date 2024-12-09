@@ -40,8 +40,17 @@ jobs:
           CONTENT="$TIMESTAMP\n$CONTENT"
           echo "Prepended TIMESTAMP to CONTENT."
 
-          echo "Latest value of CONTENT:"
-          echo "$CONTENT"
+          if grep -q '<!-- INSERT:USAGE.md -->' README.md; then
+            echo "Found short tag <!-- INSERT:USAGE.md -->."
+          else
+            echo "Short tag <!-- INSERT:USAGE.md --> not found."
+          fi
+
+          if grep -q '<!-- INSERT_START:USAGE.md -->' README.md && grep -q '<!-- INSERT_END:USAGE.md -->'; then
+            echo "Found block tags <!-- INSERT_START:USAGE.md --> and <!-- INSERT_END:USAGE.md -->."
+          else
+            echo "Block tags <!-- INSERT_START:USAGE.md --> and <!-- INSERT_END:USAGE.md --> not found."
+          fi
 
       - name: Commit and push changes
         run: |
