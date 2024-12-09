@@ -12,9 +12,11 @@ jobs:
       CLI_PATH: ./index.js
 
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      # Step 2: Cache npm dependencies
       - name: Cache npm dependencies
         uses: actions/cache@v2
         with:
@@ -23,11 +25,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
+      # Step 3: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 23.x
 
+      # Step 4: Install npm packages and fix vulnerabilities
       - name: Install npm packages
         run: |
           set -e
@@ -36,6 +40,17 @@ jobs:
           npm audit fix
           echo "npm packages audited fixed"
 
+      # Step 5: Check if the file specified in CLI_PATH exists
+      - name: Check CLI_PATH file
+        run: |
+          set -e
+          if [ ! -f "$CLI_PATH" ]; then
+            echo "File specified in CLI_PATH not found: $CLI_PATH"
+          else
+            echo "File specified in CLI_PATH found: $CLI_PATH"
+          fi
+
+      # Step 6: Create USAGE.md using generate-usage.js
       - name: Create USAGE.md
         run: |
           set -e
@@ -43,6 +58,7 @@ jobs:
           echo "USAGE.md file created by generate-usage.js."
           cat USAGE.md
 
+      # Step 7: Update README.md with content from USAGE.md
       - name: Update README.md
         run: |
           set -e
@@ -84,6 +100,7 @@ jobs:
           echo "Latest value of CONTENT:"
           echo "$CONTENT"
 
+      # Step 8: Commit and push changes
       - name: Commit and push changes
         run: |
           set -e
