@@ -1,4 +1,4 @@
-name: Run Script
+name: Update README.md
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  run-script:
+  update-readme:
     runs-on: ubuntu-latest
 
     steps:
@@ -42,28 +42,11 @@ jobs:
             exit 0
           fi
 
-      - name: Commit changes
+      - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md USAGE.md
           git commit -m "Update README.md with content from USAGE.md"
-          git log -1
-
-      - name: Pull latest changes
-        run: |
-          git pull origin master --rebase || git rebase --abort
-
-      - name: Resolve conflicts
-        run: |
-          if git status | grep -q 'CONFLICT'; then
-            git add .github/workflows/update-readme.yml README.md
-            git rebase --continue || git rebase --skip
-          else
-            echo "No conflicts to resolve."
-          fi
-
-      - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          git pull --rebase
+          git push
