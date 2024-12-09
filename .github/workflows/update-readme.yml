@@ -34,7 +34,7 @@ jobs:
           if grep -q '<!-- INSERT:USAGE.md -->' README.md; then
             awk '/<!-- INSERT:USAGE.md -->/ {print "<!-- INSERT_START:USAGE.md -->"; system("cat USAGE.md"); print "<!-- INSERT_END:USAGE.md -->"; next} {print}' README.md > temp.md && mv temp.md README.md
             echo "Short tag replaced with content of USAGE.md."
-          elif grep -q '<!-- INSERT_START:USAGE.md -->' README.md && grep -q '<!-- INSERT_END:USAGE.md -->' README.md; then
+          elif grep -q '<!-- INSERT_START:USAGE.md -->' README.md && grep -q '<!-- INSERT_END:USAGE.md -->'; then
             awk '/<!-- INSERT_START:USAGE.md -->/,/<!-- INSERT_END:USAGE.md -->/ {if (/<!-- INSERT_END:USAGE.md -->/) {print "<!-- INSERT_START:USAGE.md -->"; system("cat USAGE.md"); print "<!-- INSERT_END:USAGE.md -->"; next} next} {print}' README.md > temp.md && mv temp.md README.md
             echo "Content between tags replaced with content of USAGE.md."
           else
@@ -56,8 +56,12 @@ jobs:
 
       - name: Resolve conflicts
         run: |
-          git add .github/workflows/update-readme.yml README.md
-          git rebase --continue || git rebase --skip
+          if git status | grep -q 'CONFLICT'; then
+            git add .github/workflows/update-readme.yml README.md
+            git rebase --continue || git rebase --skip
+          else
+            echo "No conflicts to resolve."
+          fi
 
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
