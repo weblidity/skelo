@@ -1,4 +1,4 @@
-name: Update CLI's README
+name: Run Script
 
 on:
   push:
@@ -36,4 +36,18 @@ jobs:
             awk '/<!-- INSERT_START:USAGE.md -->/,/<!-- INSERT_END:USAGE.md -->/ {if (/<!-- INSERT_END:USAGE.md -->/) {print "<!-- INSERT_START:USAGE.md -->"; system("cat USAGE.md"); print "<!-- INSERT_END:USAGE.md -->"; next} next} {print}' README.md > temp.md && mv temp.md README.md
             echo "Content between tags replaced with content of USAGE.md."
           else
-            echo
+            echo "No relevant tags found in README.md. Skipping step."
+            exit 0
+          fi
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md USAGE.md
+          git commit -m "Update README.md with content from USAGE.md"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
