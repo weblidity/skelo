@@ -24,7 +24,7 @@ jobs:
         run: |
           npm install
           echo "npm packages installed."
-          npn audit fix
+          npm audit fix
           echo "npm packages audited fixed"
 
       - name: Create USAGE.md
