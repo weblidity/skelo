@@ -628,6 +628,7 @@ This configuration file mechanism makes it easy to manage settings for your Docu
 
 ## Author
 
+
 [Ion Gireada at Weblidity](https://github.com/weblidity) - ion.gireada[at]weblidity.com
 
 ## License
