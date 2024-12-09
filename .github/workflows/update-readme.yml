@@ -22,6 +22,7 @@ jobs:
 
       - name: Install npm packages
         run: |
+          set -e
           npm install
           echo "npm packages installed."
           npm audit fix
@@ -29,12 +30,14 @@ jobs:
 
       - name: Create USAGE.md
         run: |
+          set -e
           node generate-usage.js $CLI_PATH
           echo "USAGE.md file created by generate-usage.js."
           cat USAGE.md
 
       - name: Update README.md
         run: |
+          set -e
           if [ ! -f README.md ]; then
             echo "README.md not found. Skipping step."
             exit 0
@@ -75,6 +78,7 @@ jobs:
 
       - name: Commit and push changes
         run: |
+          set -e
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md USAGE.md
