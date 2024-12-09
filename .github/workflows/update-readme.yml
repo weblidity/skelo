@@ -20,11 +20,16 @@ jobs:
             exit 0
           fi
 
+          if [ ! -f USAGE.md ]; then
+            echo "USAGE.md not found. Skipping step."
+            exit 0
+          fi
+
           if grep -q '<!-- INSERT:USAGE.md -->' README.md; then
-            sed -i '/<!-- INSERT:USAGE.md -->/c\<!-- INSERT_START:USAGE.md -->\n$(cat USAGE.md)\n<!-- INSERT_END:USAGE.md -->' README.md
+            awk '/<!-- INSERT:USAGE.md -->/ {print "<!-- INSERT_START:USAGE.md -->"; system("cat USAGE.md"); print "<!-- INSERT_END:USAGE.md -->"; next} {print}' README.md > temp.md && mv temp.md README.md
             echo "Short tag replaced with content of USAGE.md."
           elif grep -q '<!-- INSERT_START:USAGE.md -->' README.md && grep -q '<!-- INSERT_END:USAGE.md -->' README.md; then
-            sed -i '/<!-- INSERT_START:USAGE.md -->/,/<!-- INSERT_END:USAGE.md -->/c\<!-- INSERT_START:USAGE.md -->\n$(cat USAGE.md)\n<!-- INSERT_END:USAGE.md -->' README.md
+            awk '/<!-- INSERT_START:USAGE.md -->/,/<!-- INSERT_END:USAGE.md -->/ {if (/<!-- INSERT_END:USAGE.md -->/) {print "<!-- INSERT_START:USAGE.md -->"; system("cat USAGE.md"); print "<!-- INSERT_END:USAGE.md -->"; next} next} {print}' README.md > temp.md && mv temp.md README.md
             echo "Content between tags replaced with content of USAGE.md."
           else
             echo "No relevant tags found in README.md. Skipping step."
