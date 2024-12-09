@@ -636,7 +636,7 @@ This configuration file mechanism makes it easy to manage settings for your Docu
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 <!-- INSERT_START:USAGE.md -->
-<!-- Mon Dec  9 19:13:40 UTC 2024 -->
+<!-- Mon Dec  9 19:26:22 UTC 2024 -->
 ```bash
 
 Usage: skelo-cli [options] [command]
