@@ -13,6 +13,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Create mock USAGE.md
+        run: |
+          echo "This is a mock USAGE.md file." > USAGE.md
+
       - name: Update README.md
         run: |
           if [ ! -f README.md ]; then
