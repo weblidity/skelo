@@ -45,11 +45,15 @@ jobs:
             
             awk '/<!-- INSERT:USAGE.md -->/ {print "<!-- INSERT_START:USAGE.md --><!-- INSERT_END:USAGE.md -->"; next}1' README.md > temp.md && mv temp.md README.md
 
-            echo "Short tag replaced with block tags and content of USAGE.md."
+            echo "Short tag replaced with block tags."
           fi
 
           if grep -q '<!-- INSERT_START:USAGE.md -->' README.md && grep -q '<!-- INSERT_END:USAGE.md -->' README.md; then
             echo "Found block tags <!-- INSERT_START:USAGE.md --> and <!-- INSERT_END:USAGE.md -->."
+            
+            awk '/<!-- INSERT_START:USAGE.md -->/,/<!-- INSERT_END:USAGE.md -->/ {if (/<!-- INSERT_START:USAGE.md -->/) {print "<!-- INSERT_START:USAGE.md -->\n" content "\n<!-- INSERT_END:USAGE.md -->"; next} if (/<!-- INSERT_END:USAGE.md -->/) {next}}1' content="$CONTENT" README.md > temp.md && mv temp.md README.md
+
+            echo "Content between block tags replaced with content of USAGE.md."
           fi
 
           echo "Latest value of CONTENT:"
