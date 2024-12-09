@@ -1,6 +1,7 @@
 # skelo-cli
 
 
+
 Scaffold Docusaurus documentation project using outline files.
 
 [![npm](https://img.shields.io/npm/v/skelo-cli.svg)](https://www.npmjs.com/package/skelo-cli)
