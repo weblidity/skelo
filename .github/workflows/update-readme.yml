@@ -13,6 +13,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Run a script
+      - name: Update README.md
         run: |
-          echo "Hello, world!"
+          if [ ! -f README.md ]; then
+            echo "README.md not found. Skipping step."
+            exit 0
+          fi
+
+          if grep -q '<!-- INSERT:USAGE.md -->' README.md; then
+            sed -i '/<!-- INSERT:USAGE.md -->/c\<!-- INSERT_START:USAGE.md -->\n$(cat USAGE.md)\n<!-- INSERT_END:USAGE.md -->' README.md
+            echo "Short tag replaced with content of USAGE.md."
+          elif grep -q '<!-- INSERT_START:USAGE.md -->' README.md && grep -q '<!-- INSERT_END:USAGE.md -->' README.md; then
+            sed -i '/<!-- INSERT_START:USAGE.md -->/,/<!-- INSERT_END:USAGE.md -->/c\<!-- INSERT_START:USAGE.md -->\n$(cat USAGE.md)\n<!-- INSERT_END:USAGE.md -->' README.md
+            echo "Content between tags replaced with content of USAGE.md."
+          else
+            echo "No relevant tags found in README.md. Skipping step."
+            exit 0
+          fi
