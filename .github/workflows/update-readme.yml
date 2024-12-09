@@ -42,15 +42,6 @@ jobs:
 
           if grep -q '<!-- INSERT:USAGE.md -->' README.md; then
             echo "Found short tag <!-- INSERT:USAGE.md -->."
-            sed -i '/<!-- INSERT:USAGE.md -->/c\<!-- INSERT_START:USAGE.md -->\n'"$CONTENT"'\n<!-- INSERT_END:USAGE.md -->' README.md
-            echo "Short tag replaced with content of USAGE.md."
-          elif grep -q '<!-- INSERT_START:USAGE.md -->' README.md && grep -q '<!-- INSERT_END:USAGE.md -->'; then
-            echo "Found block tags <!-- INSERT_START:USAGE.md --> and <!-- INSERT_END:USAGE.md -->."
-            sed -i '/<!-- INSERT_START:USAGE.md -->/,/<!-- INSERT_END:USAGE.md -->/c\<!-- INSERT_START:USAGE.md -->\n'"$CONTENT"'\n<!-- INSERT_END:USAGE.md -->' README.md
-            echo "Content between tags replaced with content of USAGE.md."
-          else
-            echo "No relevant tags found in README.md. Skipping step."
-            exit 0
           fi
 
           echo "Latest value of CONTENT:"
