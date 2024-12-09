@@ -40,13 +40,15 @@ jobs:
           CONTENT="$TIMESTAMP\n$CONTENT"
           echo "Prepended TIMESTAMP to CONTENT."
 
+
           if grep -q '<!-- INSERT:USAGE.md -->' README.md; then
             echo "Found short tag <!-- INSERT:USAGE.md -->."
           fi
-
-          if grep -q '<!-- INSERT_START:USAGE.md -->' README.md && grep -q '<!-- INSERT_END:USAGE.md -->'; then
-              echo "Found block tags <!-- INSERT_START:USAGE.md --> and <!-- INSERT_END:USAGE.md -->." 
+          
+          if grep -q '<!-- INSERT_START:USAGE.md -->' README.md && grep -q '<!-- INSERT_END:USAGE.md -->' README.md; then
+            echo "Found block tags <!-- INSERT_START:USAGE.md --> and <!-- INSERT_END:USAGE.md -->."
           fi
+
 
           echo "Latest value of CONTENT:"
           echo "$CONTENT"
