@@ -15,6 +15,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Install npm packages
+        run: |
+          npm install
+          echo "npm packages installed."
+
       - name: Create USAGE.md
         run: |
           node generate-usage.js $CLI_PATH
