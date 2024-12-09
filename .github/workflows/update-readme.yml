@@ -31,11 +31,23 @@ jobs:
             exit 0
           fi
 
+          echo "Content of README.md before update:"
+          cat README.md
+
+          CONTENT=$(cat USAGE.md)
+          echo "Content of USAGE.md stored in variable CONTENT."
+
+          TIMESTAMP="<!-- $(date) -->"
+          echo "Current date and time stored in variable TIMESTAMP: $TIMESTAMP"
+
+          CONTENT="$TIMESTAMP\n$CONTENT"
+          echo "Prepended TIMESTAMP to CONTENT."
+
           if grep -q '<!-- INSERT:USAGE.md -->' README.md; then
-            awk '/<!-- INSERT:USAGE.md -->/ {print "<!-- INSERT_START:USAGE.md -->"; system("cat USAGE.md"); print "<!-- INSERT_END:USAGE.md -->"; next} {print}' README.md > temp.md && mv temp.md README.md
+            awk '/<!-- INSERT:USAGE.md -->/ {print "<!-- INSERT_START:USAGE.md -->"; print ENVIRON["CONTENT"]; print "<!-- INSERT_END:USAGE.md -->"; next} {print}' README.md > temp.md && mv temp.md README.md
             echo "Short tag replaced with content of USAGE.md."
           elif grep -q '<!-- INSERT_START:USAGE.md -->' README.md && grep -q '<!-- INSERT_END:USAGE.md -->'; then
-            awk '/<!-- INSERT_START:USAGE.md -->/,/<!-- INSERT_END:USAGE.md -->/ {if (/<!-- INSERT_END:USAGE.md -->/) {print "<!-- INSERT_START:USAGE.md -->"; system("cat USAGE.md"); print "<!-- INSERT_END:USAGE.md -->"; next} next} {print}' README.md > temp.md && mv temp.md README.md
+            awk '/<!-- INSERT_START:USAGE.md -->/,/<!-- INSERT_END:USAGE.md -->/ {if (/<!-- INSERT_END:USAGE.md -->/) {print "<!-- INSERT_START:USAGE.md -->"; print ENVIRON["CONTENT"]; print "<!-- INSERT_END:USAGE.md -->"; next} next} {print}' README.md > temp.md && mv temp.md README.md
             echo "Content between tags replaced with content of USAGE.md."
           else
             echo "No relevant tags found in README.md. Skipping step."
