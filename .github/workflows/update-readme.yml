@@ -50,6 +50,10 @@ jobs:
           git commit -m "Update README.md with content from USAGE.md"
           git log -1
 
+      - name: Pull latest changes
+        run: |
+          git pull origin master --rebase
+
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
