@@ -11,9 +11,18 @@ jobs:
     env:
       CLI_PATH: ./index.js
 
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
 
       - name: Install npm packages
         run: |
