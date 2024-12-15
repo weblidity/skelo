@@ -1,0 +1,10 @@
+sidebars:
+  - label: docs
+    items:
+      - Overview
+      - Getting started
+
+  - label: API
+    items:
+      - API overview
+      - API endpoints

@@ -1,0 +1,26 @@
+sidebars:
+    -
+        label: docs
+        items:
+            -
+                label: Overview
+                headings:
+                    -
+                        label: Sublevel
+                        items:
+                            - 'Sublevel 1.1'
+                            - 'Sublevel 1.2'
+                            - 'Sublevel 1.3'
+                    -
+                        label: 'Sublevel 2'
+                        items:
+                            - 'Sublevel 2.1'
+                            - 'Sublevel 2.2'
+                            - 'Sublevel 2.3'
+                    -
+                        label: 'Sublevel 3'
+                        items:
+                            - 'Sublevel 3.1'
+                            - 'Sublevel 3.2'
+                            - 'Sublevel 3.3'
+            - 'Getting started'

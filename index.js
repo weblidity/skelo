@@ -1,5 +1,10 @@
 #!/usr/bin/env node
 
+const {  loadDocusaurusConfig } = require('./lib/skelo-outline');
+const jsYaml = require('yamljs');
+const { slugify} = require('./lib/skelo-files');
+const { extractMarkdownStructure } = require('./lib/skelo-outline');
+
 const { generateSidebarsFile, buildSidebarsLayout, validateFilesAndShowDuplicatedLabels } = require('./lib/skelo-utils');
 const fs = require('fs');
 const path = require('path');
@@ -137,7 +142,7 @@ program
     width: 100
   })
 
-  program
+program
   .command('init')
   .alias('i')
   .argument('[configFile]', 'Path to the configuration file', SKELO_CONFIG_FILE)
@@ -152,23 +157,23 @@ program
     const defaultConfig = { ...DEFAULT_OPTIONS, ...DEFAULT_TEMPLATE_NAMES };
 
     const sortedConfig = Object.keys(defaultConfig).sort().reduce((obj, key) => {
-        let value = defaultConfig[key];
+      let value = defaultConfig[key];
 
-        // Sort array values if the value is an array
-        if (Array.isArray(value)) {
-          value = value.sort();
-        }
+      // Sort array values if the value is an array
+      if (Array.isArray(value)) {
+        value = value.sort();
+      }
 
-        // Sort object values recursively by key names if the value is an object
-        else if (typeof value === 'object' && value !== null) {
-            value = Object.keys(value).sort().reduce((sortedObj, innerKey) => {
-                sortedObj[innerKey] = value[innerKey];
-                return sortedObj;
-            }, {});
-        }
+      // Sort object values recursively by key names if the value is an object
+      else if (typeof value === 'object' && value !== null) {
+        value = Object.keys(value).sort().reduce((sortedObj, innerKey) => {
+          sortedObj[innerKey] = value[innerKey];
+          return sortedObj;
+        }, {});
+      }
 
-        obj[key] = value;
-        return obj;
+      obj[key] = value;
+      return obj;
     }, {});
 
     try {
@@ -179,4 +184,49 @@ program
     }
   });
 
-program.parse();
+program
+  .command('outline')
+  .alias('o')
+  .description('Create outline files from a directory of markdown files')
+  .argument('targetOutlineDir', 'Target directory for outline files')
+  .option('-c, --config <path>', 'Path to the configuration file', SKELO_CONFIG_FILE) // Add config option
+  .option('-v, --verbose', 'Verbose output')
+  .option('-d, --docs <path>', 'Docusaurus documentation directory', 'docs')
+  // .option('--fallback-patterns <patterns...>', 'Fallback glob patterns for outline files', FALLBACK_PATTERNS)
+  .option('-s, --sidebarsFilename <filePath>', 'Sidebars file name', 'sidebars.js')
+  .option('--schemaFilename <path>', 'Schema file', 'schemas/outline/v1/outline.schema.json')
+
+  .configureHelp({
+    sortSubcommands: true,
+    sortOptions: true,
+    width: 100
+  })
+  .action((targetOutlineDir, options) => {
+    const sidebars = loadDocusaurusConfig(path.join(options.sidebarsFilename)); // gets the sidebars.js file specified in options.sidebarsFilename
+
+    Object.entries(sidebars).forEach(([sidebarName, items]) => {
+      const outlineSidebar = {
+        sidebars: [{
+        label: sidebarName,
+        items: items.reduce((acc, item) => {
+          const sidebarItemFilename = path.join(options.docs, `${item}.md`); // path.join(options.docs, item);
+          const sidebarItemContent = fs.readFileSync(sidebarItemFilename, 'utf8');
+          const sidebarItem = extractMarkdownStructure(sidebarItemContent)
+          acc.push(sidebarItem);
+          return acc;
+        }, [])
+      }]}
+
+      const outlineFilename = path.resolve(targetOutlineDir, `${slugify(sidebarName)}.outline.yaml`);
+      try {
+        fs.mkdirSync(path.dirname(outlineFilename), { recursive: true });
+        fs.writeFileSync(outlineFilename, jsYaml.stringify(outlineSidebar, 10, 4), 'utf8');
+      } catch (err) {
+        console.error(`Error writing outline file ${outlineFilename}: ${err.message}`);
+      }
+    })
+  });
+
+program.parse("node index.js outline __generated_outlines__ --verbose ".split(' '));
+// program.parse("node index.js sample.outline.yaml --verbose ".split(' '));
+// program.parse();
