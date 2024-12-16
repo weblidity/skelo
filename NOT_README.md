@@ -1,3 +1,9 @@
+# Here is the information
+
+## Additional applications
+
+<!-- ::insert file="USAGE.md" -->
+<!-- Timestamp: 12/16/2024, 8:18:07 AM -->
 ```bash
 
 Usage: skelo-cli [options] [command]
@@ -121,3 +127,6 @@ Options:
                                      "schemas/outline/v1/outline.schema.json")
   -v, --verbose                      Verbose output
 ```
+
+<!-- :/insert -->
+

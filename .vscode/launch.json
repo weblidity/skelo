@@ -12,6 +12,27 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}\\index.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Generate Usage Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}\\generate-usage.js",
+            "args":[
+                "index.js"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Process Markdown Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}\\processMarkdownFile.js"
         }
     ]
 }

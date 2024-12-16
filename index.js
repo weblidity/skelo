@@ -227,6 +227,6 @@ program
     })
   });
 
-program.parse("node index.js outline __generated_outlines__ --verbose ".split(' '));
+// program.parse("node index.js outline __generated_outlines__ --verbose ".split(' '));
 // program.parse("node index.js sample.outline.yaml --verbose ".split(' '));
-// program.parse();
+program.parse();
